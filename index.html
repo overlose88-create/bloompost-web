@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="네이버 블로그 자동 포스팅 도구 BloomPost - 체험판 10회 무료 발급" />
+  <title>BloomPost · 체험판 10회 무료 신청</title>
+
+  <!-- ============================================================ -->
+  <!-- 배포 전 반드시 아래 SUPABASE_URL / SUPABASE_ANON_KEY 를       -->
+  <!-- 본인 Supabase 프로젝트 값으로 교체하세요!                    -->
+  <!-- ============================================================ -->
+  <script>
+    window.__BLOOMPOST_CONFIG__ = {
+      // 1) Supabase 프로젝트 URL (이미 운영 중인 그 프로젝트)
+      SUPABASE_URL: "https://ojhrflspttafwnhgghcc.supabase.co",
+      // 2) anon key (publishable key) — Supabase 대시보드 → Settings → API
+      //    license_manager.py 에서 쓰는 그 publishable key 그대로 입력
+      SUPABASE_ANON_KEY: "sb_publishable_C9iQ3KwX1zqJNUIZEkb27w_uECkOEgr",
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg:        #FAF7F2;
+      --card:      #FFFFFF;
+      --accent:    #C49A6C;
+      --accent-h:  #B8935D;
+      --accent2:   #F0E6D3;
+      --text:      #2C2C2C;
+      --text-mute: #888888;
+      --border:    #E8DDD0;
+      --error:     #E53935;
+      --success:   #4CAF50;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+
+    /* ── Layout ── */
+    .wrap { max-width: 540px; margin: 0 auto; padding: 32px 20px 64px; }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .brand-pill {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      margin: 8px 0 12px;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .hero h1 b { color: var(--accent); }
+    .hero p {
+      margin: 0;
+      color: var(--text-mute);
+      font-size: 14px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(196,154,108,0.06);
+    }
+    .card + .card { margin-top: 16px; }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .feature-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list .dot {
+      width: 24px; height: 24px;
+      flex: 0 0 24px;
+      background: var(--accent2);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ── Form ── */
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 14px 0 6px;
+      color: var(--text);
+    }
+    label .opt { color: var(--text-mute); font-weight: 400; font-size: 12px; margin-left: 4px; }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      background: #fff;
+      color: var(--text);
+      transition: border-color 0.15s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(196,154,108,0.15);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.15s, transform 0.05s;
+    }
+    .btn:hover:not(:disabled) { background: var(--accent-h); }
+    .btn:active:not(:disabled) { transform: scale(0.99); }
+    .btn:disabled {
+      background: var(--border);
+      color: var(--text-mute);
+      cursor: not-allowed;
+    }
+
+    .agree {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-mute);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .agree input { margin-top: 3px; flex: 0 0 auto; }
+    .agree label {
+      margin: 0;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--text-mute);
+      cursor: pointer;
+    }
+
+    /* ── Status / messages ── */
+    .msg {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+    }
+    .msg.show { display: block; }
+    .msg.error {
+      background: #FDECEA;
+      color: var(--error);
+      border: 1px solid #FACBC8;
+    }
+    .msg.warn {
+      background: #FFF8E5;
+      color: #B5840A;
+      border: 1px solid #FFE7A6;
+    }
+
+    /* ── Result screen ── */
+    .result {
+      display: none;
+      text-align: center;
+    }
+    .result.show { display: block; }
+    .result .icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 18px;
+      background: var(--accent2);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .result h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .result p {
+      margin: 0 0 18px;
+      color: var(--text-mute);
+      font-size: 14px;
+    }
+    .result .key-preview {
+      background: var(--accent2);
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 12px 0 18px;
+      font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+    .result .help {
+      color: var(--text-mute);
+      font-size: 12px;
+      line-height: 1.7;
+      text-align: left;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+    .result .help b { color: var(--text); }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-mute);
+    }
+
+    @media (max-width: 480px) {
+      .wrap { padding: 24px 16px 48px; }
+      .hero h1 { font-size: 22px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="brand">
+    <span class="brand-pill">🌸 BloomPost</span>
+  </div>
+
+  <div class="hero">
+    <h1>네이버 블로그를 <b>자동으로</b><br>꽃피우다</h1>
+    <p>체험판 10회 무료 신청. 키는 이메일로 즉시 받아보실 수 있어요.</p>
+  </div>
+
+  <!-- ── 신청 폼 ── -->
+  <form id="form" class="card" novalidate>
+    <h3 style="margin:0 0 4px;font-size:16px;font-weight:700;">체험판 신청</h3>
+    <p style="margin:0 0 4px;color:var(--text-mute);font-size:13px;">이메일로 즉시 키가 발송됩니다.</p>
+
+    <label for="name">이름 (또는 닉네임)</label>
+    <input id="name" name="name" type="text" required autocomplete="name" placeholder="예: 김미용" />
+
+    <label for="email">이메일</label>
+    <input id="email" name="email" type="email" required autocomplete="email" placeholder="키를 받을 이메일 주소" />
+
+    <label for="phone">휴대폰 번호 <span class="opt">(선택, 카톡 알림톡 안내용)</span></label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="010-1234-5678" />
+
+    <button id="submit" class="btn" type="submit">체험판 키 받기</button>
+
+    <div class="agree">
+      <input id="agree" type="checkbox" required />
+      <label for="agree">
+        체험판 신청을 위해 입력한 정보(이름·이메일·연락처)의 수집 및 키 안내 목적의 이용에 동의합니다.
+      </label>
+    </div>
+
+    <div id="msg" class="msg"></div>
+  </form>
+
+  <!-- ── 기능 소개 ── -->
+  <div class="card" style="margin-top:16px;">
+    <h3 style="margin:0 0 12px;font-size:15px;font-weight:700;">체험판으로 할 수 있는 것</h3>
+    <ul class="feature-list">
+      <li><span class="dot">1</span> 네이버 블로그 자동 포스팅 10회</li>
+      <li><span class="dot">2</span> Gemini AI로 글 자동 작성</li>
+      <li><span class="dot">3</span> 이미지 자동 첨부 + 서식 적용</li>
+      <li><span class="dot">4</span> 최대 2대의 기기에서 사용 가능</li>
+    </ul>
+  </div>
+
+  <!-- ── 발급 완료 화면 ── -->
+  <div id="result" class="result card">
+    <div class="icon">✅</div>
+    <h2 id="result-title">발급 완료!</h2>
+    <p id="result-desc">입력하신 이메일로 라이선스 키를 보내드렸어요.</p>
+    <div class="key-preview" id="result-key"></div>
+    <div class="help">
+      <b>이메일이 안 보인다면?</b><br>
+      ① 스팸함을 확인해주세요.<br>
+      ② 그래도 없으면, 이 페이지를 새로고침하고 같은 이메일로 다시 신청해주세요. 같은 키를 다시 보내드립니다.
+    </div>
+    <button class="btn" id="back-btn" type="button" style="background:#fff;color:var(--accent);border:1px solid var(--accent);">
+      처음으로
+    </button>
+  </div>
+
+  <div class="footer">
+    © BloomPost · 문의: 받은 메일에 회신 부탁드립니다.
+  </div>
+</div>
+
+<script>
+(function(){
+  const cfg = window.__BLOOMPOST_CONFIG__ || {};
+  const ENDPOINT = cfg.SUPABASE_URL ? cfg.SUPABASE_URL + "/functions/v1/issue-trial" : "";
+  const ANON_KEY = cfg.SUPABASE_ANON_KEY || "";
+
+  const form    = document.getElementById("form");
+  const result  = document.getElementById("result");
+  const msg     = document.getElementById("msg");
+  const submit  = document.getElementById("submit");
+  const agree   = document.getElementById("agree");
+  const inputs  = ["name","email","phone"].map(id => document.getElementById(id));
+  const back    = document.getElementById("back-btn");
+  const rTitle  = document.getElementById("result-title");
+  const rDesc   = document.getElementById("result-desc");
+  const rKey    = document.getElementById("result-key");
+
+  function showMsg(text, level){
+    msg.textContent = text;
+    msg.className = "msg show " + (level || "error");
+  }
+  function hideMsg(){ msg.className = "msg"; msg.textContent = ""; }
+
+  back.addEventListener("click", () => {
+    result.classList.remove("show");
+    form.style.display = "block";
+    form.reset();
+    hideMsg();
+    inputs[0].focus();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    hideMsg();
+
+    if (!ENDPOINT || !ANON_KEY) {
+      showMsg("설정이 완료되지 않았습니다. 관리자에게 문의해주세요. (Supabase URL/key 미설정)", "error");
+      return;
+    }
+
+    const name  = inputs[0].value.trim();
+    const email = inputs[1].value.trim();
+    const phone = inputs[2].value.trim();
+
+    if (!name)  return showMsg("이름을 입력해주세요.");
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showMsg("올바른 이메일 주소를 입력해주세요.");
+    if (!agree.checked) return showMsg("개인정보 수집 및 이용에 동의해주세요.");
+
+    submit.disabled = true;
+    submit.textContent = "발송 중...";
+
+    try {
+      const resp = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": ANON_KEY,
+          "Authorization": "Bearer " + ANON_KEY,
+        },
+        body: JSON.stringify({ name, email, phone }),
+      });
+
+      let data = {};
+      try { data = await resp.json(); } catch(_) {}
+
+      if (resp.ok && data.ok) {
+        // 신규 또는 기존 발급
+        form.style.display = "none";
+        result.classList.add("show");
+        if (data.already_issued) {
+          rTitle.textContent = "이미 발급된 키예요";
+          rDesc.textContent  = "동일한 라이선스 키를 다시 이메일로 보내드렸어요.";
+        } else {
+          rTitle.textContent = "발급 완료!";
+          rDesc.textContent  = data.email_sent === false
+            ? "키는 발급됐지만 이메일 발송에 실패했어요. 잠시 후 다시 시도해주세요."
+            : "입력하신 이메일로 라이선스 키를 보내드렸어요.";
+        }
+        rKey.textContent = data.license_key_masked || "키 확인은 이메일에서 해주세요";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        showMsg(data.error || "발급 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.",
+                resp.status === 429 ? "warn" : "error");
+      }
+    } catch (err) {
+      showMsg("네트워크 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+    } finally {
+      submit.disabled = false;
+      submit.textContent = "체험판 키 받기";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
