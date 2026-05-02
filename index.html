@@ -3,434 +3,1080 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="네이버 블로그 자동 포스팅 도구 BloomPost - 체험판 10회 무료 발급" />
-  <title>BloomPost · 체험판 10회 무료 신청</title>
+  <title>Bloom Post Blog Auto Pro — 네이버 블로그 자동화 솔루션</title>
+  <meta name="description" content="네이버 블로그를 AI로 완전 자동화. 키워드 분석부터 자동 발행까지. 지금 10개 무료 체험하세요." />
 
-  <!-- ============================================================ -->
-  <!-- 배포 전 반드시 아래 SUPABASE_URL / SUPABASE_ANON_KEY 를       -->
-  <!-- 본인 Supabase 프로젝트 값으로 교체하세요!                    -->
-  <!-- ============================================================ -->
-  <script>
-    window.__BLOOMPOST_CONFIG__ = {
-      // 1) Supabase 프로젝트 URL (이미 운영 중인 그 프로젝트)
-      SUPABASE_URL: "https://ojhrflspttafwnhgghcc.supabase.co",
-      // 2) anon key (publishable key) — Supabase 대시보드 → Settings → API
-      //    license_manager.py 에서 쓰는 그 publishable key 그대로 입력
-      SUPABASE_ANON_KEY: "sb_publishable_C9iQ3KwX1zqJNUIZEkb27w_uECkOEgr",
-    };
-  </script>
-
+  <!-- ── DESIGN SYSTEM (Agent 1) ── -->
   <style>
-    :root {
-      --bg:        #FAF7F2;
-      --card:      #FFFFFF;
-      --accent:    #C49A6C;
-      --accent-h:  #B8935D;
-      --accent2:   #F0E6D3;
-      --text:      #2C2C2C;
-      --text-mute: #888888;
-      --border:    #E8DDD0;
-      --error:     #E53935;
-      --success:   #4CAF50;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-    }
-    a { color: var(--accent); text-decoration: none; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
 
-    /* ── Layout ── */
-    .wrap { max-width: 540px; margin: 0 auto; padding: 32px 20px 64px; }
+  :root {
+    --color-bg-base:       #0a0a1a;
+    --color-bg-deep:       #05050f;
+    --color-bg-surface:    rgba(255,255,255,0.04);
+    --color-purple:        #6c63ff;
+    --color-purple-light:  #a78bfa;
+    --color-purple-dark:   #4c44c9;
+    --color-blue:          #4facfe;
+    --color-blue-light:    #93c5fd;
+    --color-pink:          #a855f7;
+    --color-cyan:          #00f2fe;
+    --color-white:         #ffffff;
+    --color-white-80:      rgba(255,255,255,0.80);
+    --color-white-60:      rgba(255,255,255,0.60);
+    --color-white-40:      rgba(255,255,255,0.40);
+    --color-white-15:      rgba(255,255,255,0.15);
+    --color-white-08:      rgba(255,255,255,0.08);
+    --color-white-05:      rgba(255,255,255,0.05);
+    --grad-primary:        linear-gradient(135deg,#6c63ff 0%,#4facfe 50%,#a855f7 100%);
+    --grad-hero-text:      linear-gradient(135deg,#ffffff 0%,#c4b5fd 40%,#93c5fd 100%);
+    --grad-btn:            linear-gradient(135deg,#6c63ff 0%,#a855f7 100%);
+    --grad-card:           linear-gradient(135deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.03) 100%);
+    --glass-bg:            rgba(255,255,255,0.07);
+    --glass-border:        rgba(255,255,255,0.15);
+    --glass-border-strong: rgba(255,255,255,0.25);
+    --glass-blur:          blur(20px);
+    --glass-blur-heavy:    blur(40px);
+    --glass-blur-light:    blur(10px);
+    --shadow-glow-purple:  0 0 40px rgba(108,99,255,0.4);
+    --shadow-card:         0 8px 32px rgba(0,0,0,0.4),0 2px 8px rgba(0,0,0,0.2);
+    --shadow-btn:          0 4px 24px rgba(108,99,255,0.5);
+    --shadow-btn-hover:    0 8px 40px rgba(108,99,255,0.7);
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+    --radius-xl: 28px; --radius-full: 9999px;
+    --font-base: 'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
+    --nav-height: 72px;
+    --transition-base: 0.25s ease;
+    --transition-spring: 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    /* Content section tokens */
+    --purple: #6c63ff; --blue: #4facfe; --violet: #a855f7;
+    --purple-light: rgba(108,99,255,0.15);
+    --border-glass: rgba(255,255,255,0.12);
+    --text-primary: #f0eeff;
+    --text-secondary: rgba(240,238,255,0.65);
+    --text-muted: rgba(240,238,255,0.38);
+    --radius-card: 20px;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    /* Forms tokens */
+    --primary: #6c63ff; --primary-light: #a855f7; --accent: #4facfe;
+    --dark-bg: #0a0a1a;
+    --dark-card: rgba(255,255,255,0.05);
+    --dark-card-hov: rgba(255,255,255,0.09);
+    --text-main: #e8e8ff; --text-soft: #c0bfe8;
+    --success: #34d399; --danger: #f87171;
+    --radius-input: 12px; --blur-amt: 18px;
+    --shadow-glow: 0 0 30px rgba(108,99,255,0.25);
+  }
 
-    .brand {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .brand-pill {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 8px 20px;
-      border-radius: 999px;
-      font-size: 14px;
-    }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+  body {
+    font-family: var(--font-base);
+    background: var(--color-bg-base);
+    color: var(--color-white-80);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { text-decoration:none; color:inherit; }
+  ul,ol { list-style:none; }
+  img,svg { display:block; max-width:100%; }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .hero h1 {
-      margin: 8px 0 12px;
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.35;
-    }
-    .hero h1 b { color: var(--accent); }
-    .hero p {
-      margin: 0;
-      color: var(--text-mute);
-      font-size: 14px;
-    }
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg-base); }
+  ::-webkit-scrollbar-thumb { background:rgba(108,99,255,0.4); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:rgba(108,99,255,0.7); }
 
-    /* ── Card ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(196,154,108,0.06);
-    }
-    .card + .card { margin-top: 16px; }
+  /* GLASS UTILITIES */
+  .glass { background:var(--glass-bg); backdrop-filter:var(--glass-blur); -webkit-backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius:var(--radius-lg); }
+  .glass-card { background:var(--grad-card); backdrop-filter:var(--glass-blur); -webkit-backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius:var(--radius-xl); box-shadow:var(--shadow-card); position:relative; overflow:hidden; }
+  .glass-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 60%); pointer-events:none; border-radius:inherit; }
+  .glass-form { background:rgba(255,255,255,0.04); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border:1px solid var(--border-glass); border-radius:var(--radius-card); padding:44px 40px; box-shadow:var(--shadow-card); }
 
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .feature-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .feature-list li:last-child { border-bottom: none; }
-    .feature-list .dot {
-      width: 24px; height: 24px;
-      flex: 0 0 24px;
-      background: var(--accent2);
-      color: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-    }
+  /* BUTTONS */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-base); font-weight:600; font-size:15px; border:none; cursor:pointer; transition:all var(--transition-spring); white-space:nowrap; position:relative; overflow:hidden; border-radius:var(--radius-full); }
+  .btn-primary { background:var(--grad-btn); color:#fff; padding:14px 32px; box-shadow:var(--shadow-btn); }
+  .btn-primary:hover { box-shadow:var(--shadow-btn-hover); transform:translateY(-2px); }
+  .btn-secondary { background:var(--glass-bg); color:var(--color-white-80); padding:14px 32px; border:1px solid var(--glass-border-strong); backdrop-filter:var(--glass-blur-light); }
+  .btn-secondary:hover { background:var(--color-white-08); border-color:rgba(255,255,255,0.4); color:#fff; transform:translateY(-2px); }
+  .btn-sm { font-size:13px; padding:10px 22px; }
+  .btn-lg { font-size:17px; padding:18px 40px; }
 
-    /* ── Form ── */
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      margin: 14px 0 6px;
-      color: var(--text);
-    }
-    label .opt { color: var(--text-mute); font-weight: 400; font-size: 12px; margin-left: 4px; }
-    input[type="text"], input[type="email"], input[type="tel"] {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 15px;
-      font-family: inherit;
-      background: #fff;
-      color: var(--text);
-      transition: border-color 0.15s;
-    }
-    input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(196,154,108,0.15);
-    }
+  /* CONTAINER */
+  .container { width:100%; max-width:1200px; margin:0 auto; padding:0 24px; }
+  .section-container { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-    .btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background 0.15s, transform 0.05s;
-    }
-    .btn:hover:not(:disabled) { background: var(--accent-h); }
-    .btn:active:not(:disabled) { transform: scale(0.99); }
-    .btn:disabled {
-      background: var(--border);
-      color: var(--text-mute);
-      cursor: not-allowed;
-    }
+  /* TEXT UTILS */
+  .text-gradient, .gradient-text {
+    background:var(--grad-primary);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .badge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:var(--radius-full); font-size:12px; font-weight:600; letter-spacing:0.03em; background:rgba(108,99,255,0.15); border:1px solid rgba(108,99,255,0.35); color:var(--color-purple-light); }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--color-purple-light); animation:glowPulse 2s ease-in-out infinite; box-shadow:0 0 6px var(--color-purple-light); }
 
-    .agree {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--text-mute);
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .agree input { margin-top: 3px; flex: 0 0 auto; }
-    .agree label {
-      margin: 0;
-      font-weight: 400;
-      font-size: 12px;
-      color: var(--text-mute);
-      cursor: pointer;
-    }
+  /* FORM ELEMENTS */
+  .form-group { margin-bottom:22px; }
+  .form-group label { display:block; font-size:0.88rem; font-weight:600; color:var(--text-soft); margin-bottom:8px; letter-spacing:0.03em; text-transform:uppercase; }
+  .form-group input,.form-group select { width:100%; padding:14px 18px; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.1); border-radius:var(--radius-input); color:var(--text-main); font-size:0.97rem; font-family:inherit; outline:none; transition:border-color var(--transition),box-shadow var(--transition),background var(--transition); }
+  .form-group select option { background:#1a1535; color:var(--text-main); }
+  .form-group input::placeholder { color:var(--text-muted); }
+  .form-group input:focus,.form-group select:focus { border-color:var(--primary); background:rgba(108,99,255,0.08); box-shadow:0 0 0 3px rgba(108,99,255,0.18),0 0 16px rgba(108,99,255,0.15); }
+  .form-group input.error,.form-group select.error { border-color:var(--danger); box-shadow:0 0 0 3px rgba(248,113,113,0.18); }
+  .form-error-msg { display:none; font-size:0.8rem; color:var(--danger); margin-top:6px; }
+  .form-error-msg.visible { display:block; }
 
-    /* ── Status / messages ── */
-    .msg {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      line-height: 1.5;
-      display: none;
-    }
-    .msg.show { display: block; }
-    .msg.error {
-      background: #FDECEA;
-      color: var(--error);
-      border: 1px solid #FACBC8;
-    }
-    .msg.warn {
-      background: #FFF8E5;
-      color: #B5840A;
-      border: 1px solid #FFE7A6;
-    }
+  /* SECTION SHARED */
+  .section-eyebrow,.section-label { display:inline-block; font-size:13px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--purple); background:var(--purple-light); border:1px solid rgba(108,99,255,0.3); padding:6px 16px; border-radius:100px; margin-bottom:20px; }
+  .section-title { font-size:clamp(32px,5vw,52px); font-weight:700; line-height:1.15; color:var(--text-primary); margin-bottom:16px; }
+  .section-subtitle { font-size:18px; color:var(--text-secondary); line-height:1.65; max-width:600px; }
+  .section-header-center { text-align:center; margin-bottom:60px; }
+  .section-header-center .section-subtitle { margin:0 auto; }
 
-    /* ── Result screen ── */
-    .result {
-      display: none;
-      text-align: center;
-    }
-    .result.show { display: block; }
-    .result .icon {
-      width: 64px; height: 64px;
-      margin: 0 auto 18px;
-      background: var(--accent2);
-      color: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-    }
-    .result h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-      font-weight: 800;
-    }
-    .result p {
-      margin: 0 0 18px;
-      color: var(--text-mute);
-      font-size: 14px;
-    }
-    .result .key-preview {
-      background: var(--accent2);
-      border: 1px dashed var(--accent);
-      border-radius: 10px;
-      padding: 14px;
-      margin: 12px 0 18px;
-      font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 1px;
-    }
-    .result .help {
-      color: var(--text-mute);
-      font-size: 12px;
-      line-height: 1.7;
-      text-align: left;
-      background: #fafafa;
-      border-radius: 10px;
-      padding: 14px;
-      margin-top: 16px;
-    }
-    .result .help b { color: var(--text); }
+  /* ANIMATIONS */
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes float { 0%,100%{transform:translateY(0)} 33%{transform:translateY(-16px) rotate(1.5deg)} 66%{transform:translateY(8px) rotate(-1deg)} }
+  @keyframes floatSlow { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-24px) rotate(2deg)} }
+  @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(108,99,255,0.3)} 50%{box-shadow:0 0 50px rgba(108,99,255,0.7),0 0 80px rgba(79,172,254,0.3)} }
+  @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+  @keyframes orbFloat { 0%,100%{transform:translate(0,0) scale(1)} 25%{transform:translate(30px,-40px) scale(1.05)} 50%{transform:translate(-20px,20px) scale(0.97)} 75%{transform:translate(40px,30px) scale(1.03)} }
+  @keyframes particleFade { 0%,100%{opacity:0;transform:translateY(0) scale(1)} 50%{opacity:1;transform:translateY(-20px) scale(1.2)} }
+  @keyframes barGrow { from{width:40%} to{width:85%} }
+  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top;opacity:0} 50%{transform:scaleY(1);transform-origin:top;opacity:1} 100%{transform:scaleY(0);transform-origin:bottom;opacity:0} }
+  .animate-fade-in-up { opacity:0; animation:fadeInUp 0.8s ease forwards; }
+  .animate-float { animation:float 6s ease-in-out infinite; }
+  .animate-glow { animation:glowPulse 3s ease-in-out infinite; }
 
-    .footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-mute);
-    }
+  /* FADE-IN-UP (scroll) */
+  .fade-in-up { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .fade-in-up.visible { opacity:1; transform:translateY(0); }
+  .fade-in-up.delay-1{transition-delay:0.1s} .fade-in-up.delay-2{transition-delay:0.2s} .fade-in-up.delay-3{transition-delay:0.3s} .fade-in-up.delay-4{transition-delay:0.4s}
 
-    @media (max-width: 480px) {
-      .wrap { padding: 24px 16px 48px; }
-      .hero h1 { font-size: 22px; }
-      .card { padding: 20px; }
-    }
+  /* BG CANVAS */
+  .bg-canvas { position:fixed; inset:0; z-index:-1; background:var(--color-bg-base); overflow:hidden; }
+  .bg-orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.5; animation:orbFloat 12s ease-in-out infinite; }
+  .bg-orb-1 { width:600px;height:600px;background:radial-gradient(circle,rgba(108,99,255,0.6),transparent 70%);top:-200px;left:-150px;animation-duration:14s; }
+  .bg-orb-2 { width:500px;height:500px;background:radial-gradient(circle,rgba(79,172,254,0.4),transparent 70%);top:20%;right:-100px;animation-delay:-4s;animation-duration:18s; }
+  .bg-orb-3 { width:400px;height:400px;background:radial-gradient(circle,rgba(168,85,247,0.5),transparent 70%);bottom:10%;left:30%;animation-delay:-8s;animation-duration:16s; }
+  .bg-orb-4 { width:300px;height:300px;background:radial-gradient(circle,rgba(0,242,254,0.25),transparent 70%);bottom:-100px;right:20%;animation-delay:-2s;animation-duration:20s; }
+  .bg-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(ellipse 80% 80% at 50% 20%,black 40%,transparent 100%); -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 20%,black 40%,transparent 100%); }
+  .particle { position:absolute; border-radius:50%; pointer-events:none; animation:particleFade 6s ease-in-out infinite; }
+
+  /* NAV */
+  nav#main-nav { position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-height); transition:background var(--transition-base),backdrop-filter var(--transition-base),border-color var(--transition-base); }
+  nav#main-nav.scrolled { background:rgba(10,10,26,0.80); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-bottom:1px solid var(--glass-border); box-shadow:0 4px 32px rgba(0,0,0,0.4); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:100%; max-width:1200px; margin:0 auto; padding:0 24px; }
+  .nav-logo { display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700; color:#fff; letter-spacing:-0.03em; }
+  .nav-logo-icon { width:36px;height:36px;border-radius:10px;background:var(--grad-btn);display:flex;align-items:center;justify-content:center;font-size:18px;animation:glowPulse 3s ease-in-out infinite; }
+  .nav-logo-text span { background:var(--grad-primary); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .nav-menu { display:flex; align-items:center; gap:4px; }
+  .nav-menu a { position:relative; padding:8px 16px; font-size:14px; font-weight:500; color:var(--color-white-60); border-radius:var(--radius-sm); transition:color 0.15s,background 0.15s; }
+  .nav-menu a::after { content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%) scaleX(0); width:calc(100% - 32px); height:2px; background:var(--grad-primary); border-radius:1px; transition:transform var(--transition-base); }
+  .nav-menu a:hover { color:#fff; background:var(--color-white-05); }
+  .nav-menu a:hover::after { transform:translateX(-50%) scaleX(1); }
+  .nav-actions { display:flex; align-items:center; gap:12px; }
+  .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; border-radius:var(--radius-sm); background:none; border:none; }
+  .nav-hamburger span { display:block; width:22px; height:2px; background:var(--color-white-80); border-radius:1px; transition:all var(--transition-base); }
+  .nav-mobile-drawer { display:none; position:fixed; top:var(--nav-height); left:0; right:0; background:rgba(10,10,26,0.95); backdrop-filter:blur(24px); border-bottom:1px solid var(--glass-border); padding:16px 24px 24px; flex-direction:column; gap:4px; z-index:999; animation:fadeInDown 0.2s ease; }
+  .nav-mobile-drawer.open { display:flex; }
+  .nav-mobile-drawer a { display:block; padding:12px 16px; font-size:15px; font-weight:500; color:var(--color-white-60); border-radius:var(--radius-sm); transition:all 0.15s; }
+  .nav-mobile-drawer a:hover { color:#fff; background:var(--color-white-05); }
+  .nav-mobile-drawer .btn { margin-top:8px; width:100%; }
+  @media(max-width:768px) { .nav-menu{display:none} .nav-actions .btn{display:none} .nav-hamburger{display:flex} }
+
+  /* HERO */
+  #hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:calc(var(--nav-height) + 60px) 24px 80px; overflow:hidden; text-align:center; }
+  .hero-float-objects { position:absolute; inset:0; pointer-events:none; z-index:0; }
+  .float-obj { position:absolute; border-radius:var(--radius-xl); display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:20px; gap:8px; }
+  .float-obj-1 { width:220px;top:15%;left:4%;background:rgba(108,99,255,0.12);backdrop-filter:blur(16px);border:1px solid rgba(108,99,255,0.30);box-shadow:0 8px 32px rgba(108,99,255,0.2);animation:float 7s ease-in-out infinite; }
+  .float-obj-2 { width:200px;top:12%;right:5%;background:rgba(79,172,254,0.10);backdrop-filter:blur(16px);border:1px solid rgba(79,172,254,0.25);box-shadow:0 8px 32px rgba(79,172,254,0.15);animation:float 9s ease-in-out infinite;animation-delay:-3s; }
+  .float-obj-3 { width:190px;bottom:20%;left:6%;background:rgba(168,85,247,0.10);backdrop-filter:blur(16px);border:1px solid rgba(168,85,247,0.25);animation:floatSlow 10s ease-in-out infinite;animation-delay:-5s; }
+  .float-obj-4 { width:210px;bottom:18%;right:5%;background:rgba(0,242,254,0.08);backdrop-filter:blur(16px);border:1px solid rgba(0,242,254,0.20);animation:float 8s ease-in-out infinite;animation-delay:-1.5s; }
+  .float-obj-icon { width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:4px; }
+  .float-obj-label { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-white-40); }
+  .float-obj-value { font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1.1; }
+  .float-obj-sub { font-size:12px;color:var(--color-white-60);line-height:1.3; }
+  .float-bar { width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);margin-top:4px;overflow:hidden; }
+  .float-bar-fill { height:100%;border-radius:2px;background:var(--grad-primary);animation:barGrow 3s ease-in-out infinite alternate; }
+  .hero-content { position:relative; z-index:1; max-width:820px; margin:0 auto; }
+  .hero-badge { margin-bottom:28px; animation:fadeInUp 0.6s ease 0.1s forwards; opacity:0; }
+  .hero-headline { font-size:clamp(36px,7vw,72px); font-weight:900; line-height:1.08; letter-spacing:-0.04em; color:#fff; margin-bottom:28px; animation:fadeInUp 0.8s ease 0.25s forwards; opacity:0; }
+  .hero-headline .line-accent { display:block; background:var(--grad-hero-text); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; background-size:200% auto; animation:fadeInUp 0.8s ease 0.25s forwards,shimmer 4s linear 1.2s infinite; opacity:0; }
+  .hero-subtitle { font-size:clamp(16px,2.2vw,20px); font-weight:400; color:var(--color-white-60); line-height:1.7; max-width:600px; margin:0 auto 44px; animation:fadeInUp 0.8s ease 0.4s forwards; opacity:0; }
+  .hero-subtitle strong { color:var(--color-white-80); font-weight:600; }
+  .hero-cta-group { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:72px; animation:fadeInUp 0.8s ease 0.55s forwards; opacity:0; }
+  .hero-cta-note { font-size:12px; color:var(--color-white-40); margin-top:12px; display:block; width:100%; text-align:center; }
+  .hero-stats { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; animation:fadeInUp 0.8s ease 0.7s forwards; opacity:0; position:relative; z-index:1; }
+  .hero-stat { padding:28px 48px; text-align:center; position:relative; }
+  .hero-stat+.hero-stat::before { content:''; position:absolute; left:0; top:20%; height:60%; width:1px; background:var(--glass-border); }
+  .hero-stat-value { font-size:clamp(28px,4vw,44px); font-weight:900; letter-spacing:-0.04em; line-height:1; background:var(--grad-hero-text); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:6px; }
+  .hero-stat-label { font-size:13px; font-weight:500; color:var(--color-white-40); }
+  .hero-scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:1; animation:fadeInUp 1s ease 1.2s forwards; opacity:0; }
+  .hero-scroll-text { font-size:11px; color:var(--color-white-40); letter-spacing:0.1em; text-transform:uppercase; font-weight:600; }
+  .hero-scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--glass-border-strong),transparent); animation:scrollLine 2s ease-in-out infinite; }
+  @media(max-width:900px) { .float-obj{display:none} }
+  @media(max-width:600px) { .hero-stat{padding:20px 24px} .hero-cta-group{flex-direction:column;width:100%} .hero-cta-group .btn{width:100%;max-width:320px} .hero-stat+.hero-stat::before{display:none} }
+
+  /* WHY SECTION */
+  section { padding:100px 0; position:relative; overflow:hidden; }
+  section::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; filter:blur(120px); opacity:0.12; pointer-events:none; z-index:0; }
+  #why::before { background:var(--purple); top:-200px; right:-200px; }
+  #features::before { background:var(--blue); bottom:-200px; left:-200px; }
+  #pricing::before { background:var(--violet); top:-150px; right:-100px; }
+  #trial::before { content:''; position:absolute; top:-200px; left:-200px; width:600px; height:600px; background:radial-gradient(circle,rgba(108,99,255,0.18) 0%,transparent 70%); pointer-events:none; z-index:0; }
+  #download::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:700px; background:radial-gradient(circle,rgba(168,85,247,0.1) 0%,transparent 65%); pointer-events:none; }
+  #license::after { content:''; position:absolute; bottom:0; right:-200px; width:550px; height:550px; background:radial-gradient(circle,rgba(79,172,254,0.1) 0%,transparent 65%); pointer-events:none; }
+  .why-problems { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-bottom:72px; }
+  .problem-card { padding:36px 32px; }
+  .problem-icon { width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px; }
+  .problem-icon.red { background:rgba(239,68,68,0.15); }
+  .problem-icon.amber { background:rgba(245,158,11,0.15); }
+  .problem-icon.blue { background:rgba(79,172,254,0.15); }
+  .problem-card h3 { font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:12px; }
+  .problem-card p { font-size:15px;color:var(--text-secondary);line-height:1.65; }
+  .problem-stat { margin-top:20px;font-size:13px;font-weight:600;color:var(--purple);background:var(--purple-light);display:inline-block;padding:4px 12px;border-radius:100px; }
+  .solution-banner { padding:48px 56px;margin-bottom:72px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(108,99,255,0.12) 0%,rgba(79,172,254,0.08) 50%,rgba(168,85,247,0.10) 100%);border:1px solid rgba(108,99,255,0.3);border-radius:var(--radius-xl); }
+  @media(max-width:720px){.solution-banner{grid-template-columns:1fr;padding:36px 28px}}
+  .solution-text h3 { font-size:28px;font-weight:700;color:var(--text-primary);margin-bottom:14px; }
+  .solution-text p { font-size:16px;color:var(--text-secondary);line-height:1.65; }
+  .solution-points { display:flex;flex-direction:column;gap:14px; }
+  .solution-points li { display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--text-secondary);line-height:1.5; }
+  .solution-points li::before { content:'✓'; flex-shrink:0;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900;margin-top:2px; }
+  .compare-title { font-size:26px;font-weight:700;color:var(--text-primary);text-align:center;margin-bottom:32px; }
+  .compare-wrap { padding:0;overflow:hidden; }
+  .compare-table { width:100%;border-collapse:collapse; }
+  .compare-table thead tr { background:rgba(255,255,255,0.04); }
+  .compare-table th { padding:18px 28px;text-align:center;font-size:15px;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid var(--border-glass); }
+  .compare-table th.col-label { text-align:left; }
+  .compare-table th.col-pro { background:linear-gradient(135deg,rgba(108,99,255,0.2),rgba(79,172,254,0.15));color:var(--blue); }
+  .compare-table td { padding:16px 28px;font-size:15px;color:var(--text-secondary);border-bottom:1px solid rgba(255,255,255,0.05);text-align:center; }
+  .compare-table td.col-label { text-align:left;font-weight:600;color:var(--text-primary); }
+  .compare-table td.col-pro { background:rgba(108,99,255,0.06); }
+  .compare-table tbody tr:last-child td { border-bottom:none; }
+  .tick { color:#34d399;font-size:18px; } .cross { color:#f87171;font-size:18px; }
+  .val-bad { color:#f87171;font-weight:600; } .val-good { color:#34d399;font-weight:700; }
+
+  /* FEATURES */
+  .features-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px; }
+  .feature-card { padding:36px 32px; }
+  .feature-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--blue));opacity:0;transition:opacity var(--transition); }
+  .feature-card:hover::before { opacity:1; }
+  .feature-icon-wrap { width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px; }
+  .feature-icon-wrap.purple{background:rgba(108,99,255,0.18)} .feature-icon-wrap.blue{background:rgba(79,172,254,0.18)} .feature-icon-wrap.violet{background:rgba(168,85,247,0.18)} .feature-icon-wrap.teal{background:rgba(52,211,153,0.15)} .feature-icon-wrap.amber{background:rgba(251,191,36,0.15)} .feature-icon-wrap.pink{background:rgba(244,114,182,0.15)}
+  .feature-card h3 { font-size:19px;font-weight:700;color:var(--text-primary);margin-bottom:12px; }
+  .feature-card p { font-size:15px;color:var(--text-secondary);line-height:1.65;margin-bottom:20px; }
+  .feature-tags { display:flex;flex-wrap:wrap;gap:8px; }
+  .feature-tag { font-size:12px;font-weight:600;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.07);color:var(--text-muted);border:1px solid rgba(255,255,255,0.10); }
+  .glass-card .feature-card:hover,.glass-card:hover { background:rgba(255,255,255,0.10); border-color:rgba(108,99,255,0.45); }
+
+  /* PRICING */
+  .billing-toggle { display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:56px; }
+  .toggle-label { font-size:15px;font-weight:600;color:var(--text-secondary);transition:color var(--transition);cursor:default; }
+  .toggle-label.active { color:var(--text-primary); }
+  .toggle-switch { position:relative;width:56px;height:30px;cursor:pointer; }
+  .toggle-switch input { opacity:0;width:0;height:0; }
+  .toggle-track { position:absolute;inset:0;border-radius:100px;background:rgba(255,255,255,0.10);border:1px solid var(--border-glass);transition:background var(--transition); }
+  .toggle-switch input:checked~.toggle-track { background:linear-gradient(135deg,var(--purple),var(--blue));border-color:transparent; }
+  .toggle-thumb { position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform var(--transition);box-shadow:0 2px 6px rgba(0,0,0,0.3); }
+  .toggle-switch input:checked~.toggle-track .toggle-thumb { transform:translateX(26px); }
+  .discount-badge { font-size:12px;font-weight:700;color:#34d399;background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);padding:3px 10px;border-radius:100px; }
+  .pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch; }
+  .pricing-grid-2col { grid-template-columns:repeat(2,1fr); max-width:880px; margin:0 auto; }
+  @media(max-width:900px){.pricing-grid,.pricing-grid-2col{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+  .price-card { padding:40px 36px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:var(--transition); }
+  .price-card.popular { border-color:rgba(108,99,255,0.5);background:rgba(108,99,255,0.10); }
+  .price-card.popular::before { content:'';position:absolute;inset:-1px;border-radius:calc(var(--radius-card) + 1px);background:linear-gradient(135deg,rgba(108,99,255,0.6),rgba(79,172,254,0.4),rgba(168,85,247,0.5));z-index:-1; }
+  .price-card.popular:hover { transform:translateY(-6px);box-shadow:0 24px 60px rgba(108,99,255,0.28); }
+  .price-card:not(.popular):hover { box-shadow:0 16px 40px rgba(108,99,255,0.12); }
+  .popular-badge { position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:linear-gradient(90deg,var(--purple),var(--blue));color:#fff;padding:6px 20px;border-radius:0 0 12px 12px; }
+  .plan-name { font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;margin-top:12px; }
+  .price-card.popular .plan-name { color:var(--blue); }
+  .price-amount { display:flex;align-items:baseline;gap:6px;margin-bottom:6px; }
+  .price-currency { font-size:22px;font-weight:700;color:var(--text-primary); }
+  .price-number { font-size:52px;font-weight:800;line-height:1;color:var(--text-primary); }
+  .price-number.gradient-text { -webkit-text-fill-color:transparent; }
+  .price-period { font-size:15px;color:var(--text-muted);align-self:flex-end;padding-bottom:6px; }
+  .price-desc { font-size:14px;color:var(--text-secondary);margin-bottom:28px;line-height:1.5;min-height:40px; }
+  .price-divider { height:1px;background:var(--border-glass);margin-bottom:24px; }
+  .price-features { list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:32px; }
+  .price-features li { display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.4; }
+  .price-features li .feat-icon { flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;background:rgba(52,211,153,0.15);color:#34d399;font-weight:900; }
+  .price-features li.disabled .feat-icon { background:rgba(255,255,255,0.07);color:var(--text-muted); }
+  .price-features li.disabled { color:var(--text-muted); }
+  .btn-cta { display:block;width:100%;padding:15px 24px;border-radius:12px;font-size:15px;font-weight:700;text-align:center;cursor:pointer;border:none;text-decoration:none;transition:var(--transition);letter-spacing:0.02em; }
+  .btn-outline { background:transparent;border:1px solid var(--border-glass);color:var(--text-secondary); }
+  .btn-outline:hover { background:rgba(255,255,255,0.08);border-color:rgba(108,99,255,0.4);color:var(--text-primary); }
+  .btn-gradient { background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 60%,var(--violet) 100%);color:#fff;box-shadow:0 8px 24px rgba(108,99,255,0.35); }
+  .btn-gradient:hover { box-shadow:0 12px 32px rgba(108,99,255,0.50);transform:translateY(-2px); }
+  .btn-outline-purple { background:transparent;border:1px solid rgba(108,99,255,0.4);color:var(--purple); }
+  .btn-outline-purple:hover { background:rgba(108,99,255,0.12);border-color:var(--purple); }
+  .pricing-note { text-align:center;margin-top:36px;font-size:14px;color:var(--text-muted); }
+  .pricing-note span { color:var(--text-secondary); }
+  .annual-price { display:none; } .monthly-price { display:flex; }
+  body.annual .annual-price { display:flex; } body.annual .monthly-price { display:none; }
+  body.annual .toggle-label.label-monthly { color:var(--text-muted); } body.annual .toggle-label.label-annual { color:var(--text-primary); }
+
+  /* TRIAL */
+  .trial-grid { display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start;margin-top:60px; }
+  .trial-form-submit { width:100%;margin-top:8px;font-size:1.05rem;padding:16px; }
+  .trial-success { display:none;text-align:center;padding:48px 32px; }
+  .trial-success.show { display:block; }
+  .trial-success-icon { width:72px;height:72px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem; }
+  .trial-success h3 { font-size:1.5rem;font-weight:700;margin-bottom:12px; }
+  .trial-success p { color:var(--text-muted);font-size:0.97rem; }
+  .benefit-card { padding:36px 32px; }
+  .benefit-card h3 { font-size:1.2rem;font-weight:700;margin-bottom:6px; }
+  .benefit-card .subtitle { font-size:0.88rem;color:var(--text-muted);margin-bottom:28px; }
+  .benefit-list { list-style:none;display:flex;flex-direction:column;gap:16px;margin-bottom:36px; }
+  .benefit-list li { display:flex;align-items:flex-start;gap:14px;font-size:0.95rem;color:var(--text-soft); }
+  .benefit-icon { flex-shrink:0;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(108,99,255,0.3),rgba(79,172,254,0.3));border:1px solid rgba(108,99,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.95rem; }
+  .benefit-list li strong { display:block;color:var(--text-main);font-weight:600;margin-bottom:2px; }
+  .benefit-note { padding:16px 20px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:12px;font-size:0.87rem;color:var(--success);display:flex;gap:10px;align-items:flex-start; }
+
+  /* DOWNLOAD */
+  .download-os-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:56px; }
+  .os-card { padding:36px 32px;text-align:center;transition:transform var(--transition),box-shadow var(--transition); }
+  .os-card:hover { transform:translateY(-6px); }
+  .os-card.primary-os::before { content:'추천';position:absolute;top:18px;right:18px;padding:4px 12px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:20px;font-size:0.75rem;font-weight:700;color:#fff; }
+  .os-icon { width:72px;height:72px;margin:0 auto 20px;background:rgba(255,255,255,0.05);border:1px solid var(--border-glass);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2.2rem; }
+  .os-card h3 { font-size:1.2rem;font-weight:700;margin-bottom:6px; }
+  .os-card .os-sub { font-size:0.85rem;color:var(--text-muted);margin-bottom:20px; }
+  .os-version-badge { display:inline-block;padding:4px 14px;background:rgba(79,172,254,0.1);border:1px solid rgba(79,172,254,0.25);border-radius:20px;font-size:0.8rem;color:var(--accent);font-weight:600;margin-bottom:6px; }
+  .os-date { display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:24px; }
+  .os-card .btn-primary,.os-card .btn-secondary { width:100%; }
+  .sysreq-card { padding:36px 40px; }
+  .sysreq-title { font-size:1rem;font-weight:700;margin-bottom:22px;color:var(--text-soft);display:flex;align-items:center;gap:8px; }
+  .sysreq-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px; }
+  .sysreq-item { display:flex;flex-direction:column;gap:4px; }
+  .req-label { font-size:0.78rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em; }
+  .req-value { font-size:0.92rem;color:var(--text-main); }
+
+  /* MODAL */
+  .modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s ease; }
+  .modal-overlay.open { opacity:1;pointer-events:all; }
+  .modal-box { background:#13102b;border:1px solid var(--border-glass);border-radius:var(--radius-card);padding:44px 40px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6),var(--shadow-glow);transform:scale(0.94) translateY(20px);transition:transform 0.28s ease;position:relative; }
+  .modal-overlay.open .modal-box { transform:scale(1) translateY(0); }
+  .modal-icon { width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,rgba(108,99,255,0.3),rgba(79,172,254,0.3));border:1px solid rgba(108,99,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 22px; }
+  .modal-box h3 { font-size:1.35rem;font-weight:700;margin-bottom:12px; }
+  .modal-box p { color:var(--text-muted);font-size:0.95rem;line-height:1.7;margin-bottom:28px; }
+  .modal-actions { display:flex;gap:14px;justify-content:center;flex-wrap:wrap; }
+  .modal-close-btn { position:absolute;top:18px;right:22px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;line-height:1;transition:color var(--transition); }
+  .modal-close-btn:hover { color:var(--text-main); }
+
+  /* LICENSE */
+  .license-grid { display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start;margin-top:60px; }
+  .license-form-submit { width:100%;margin-top:8px;font-size:1.05rem;padding:16px; }
+  .license-success { display:none;text-align:center;padding:48px 32px; }
+  .license-success.show { display:block; }
+  .license-info-card { padding:32px 28px;display:flex;flex-direction:column;gap:32px; }
+  .license-info-item { display:flex;gap:16px;align-items:flex-start; }
+  .info-icon { flex-shrink:0;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(108,99,255,0.25),rgba(168,85,247,0.2));border:1px solid rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:1.05rem; }
+  .info-text h4 { font-size:0.95rem;font-weight:700;margin-bottom:4px; }
+  .info-text p { font-size:0.87rem;color:var(--text-muted);line-height:1.6; }
+  .faq-section { margin-top:32px;border-top:1px solid var(--border-glass);padding-top:28px; }
+  .faq-section h4 { font-size:1rem;font-weight:700;margin-bottom:18px;color:var(--text-soft); }
+  .faq-item { border:1px solid var(--border-glass);border-radius:12px;margin-bottom:10px;overflow:hidden;background:rgba(255,255,255,0.03); }
+  .faq-question { width:100%;background:none;border:none;padding:16px 20px;color:var(--text-main);font-size:0.9rem;font-weight:600;font-family:inherit;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background var(--transition); }
+  .faq-question:hover { background:rgba(255,255,255,0.04); }
+  .faq-arrow { flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(108,99,255,0.15);border:1px solid rgba(108,99,255,0.25);display:flex;align-items:center;justify-content:center;font-size:0.7rem;transition:transform var(--transition),background var(--transition); }
+  .faq-item.open .faq-arrow { transform:rotate(180deg);background:rgba(108,99,255,0.3); }
+  .faq-answer { max-height:0;overflow:hidden;transition:max-height 0.35s ease;font-size:0.87rem;color:var(--text-muted);line-height:1.7; }
+  .faq-answer-inner { padding:0 20px 18px; }
+  .faq-item.open .faq-answer { max-height:300px; }
+
+  /* FOOTER */
+  footer { position:relative;border-top:1px solid var(--border-glass);padding:72px 0 40px;overflow:hidden; }
+  footer::before { content:'';position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(108,99,255,0.07) 0%,transparent 70%);pointer-events:none; }
+  .footer-grid { display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;margin-bottom:56px; }
+  .footer-brand .footer-logo { font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px; }
+  .footer-brand p { font-size:0.88rem;color:var(--text-muted);line-height:1.75;max-width:300px;margin-bottom:26px; }
+  .social-links { display:flex;gap:12px; }
+  .social-link { display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border-glass);border-radius:10px;font-size:0.82rem;font-weight:600;color:var(--text-soft);text-decoration:none;transition:background var(--transition),border-color var(--transition),color var(--transition); }
+  .social-link:hover { background:rgba(108,99,255,0.12);border-color:rgba(108,99,255,0.35);color:var(--primary-light); }
+  .footer-nav h4 { font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-soft);margin-bottom:20px; }
+  .footer-nav ul { list-style:none;display:flex;flex-direction:column;gap:12px; }
+  .footer-nav ul a { font-size:0.9rem;color:var(--text-muted);text-decoration:none;transition:color var(--transition); }
+  .footer-nav ul a:hover { color:var(--text-main); }
+  .footer-bottom { border-top:1px solid var(--border-glass);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px; }
+  .footer-copyright { font-size:0.83rem;color:var(--text-muted); }
+  .footer-tagline { font-size:0.82rem;color:var(--text-muted); }
+  .footer-tagline span { color:var(--primary-light);font-weight:600; }
+
+  /* RESPONSIVE */
+  @media(max-width:900px) { .trial-grid,.license-grid{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr 1fr} .footer-brand{grid-column:1/-1} }
+  @media(max-width:620px) { section{padding:80px 0} .glass-form{padding:28px 22px} .footer-grid{grid-template-columns:1fr} .modal-box{padding:32px 24px} .modal-actions{flex-direction:column} .modal-actions .btn-primary,.modal-actions .btn-secondary{width:100%} }
   </style>
 </head>
 <body>
 
-<div class="wrap">
+<!-- BG -->
+<div class="bg-canvas" aria-hidden="true">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="bg-orb bg-orb-4"></div>
+  <div class="bg-grid"></div>
+  <div class="particle" style="width:3px;height:3px;background:#a78bfa;top:20%;left:25%;animation-delay:0s;animation-duration:5s;"></div>
+  <div class="particle" style="width:2px;height:2px;background:#4facfe;top:35%;left:70%;animation-delay:-2s;animation-duration:7s;"></div>
+  <div class="particle" style="width:4px;height:4px;background:#6c63ff;top:60%;left:15%;animation-delay:-1s;animation-duration:6s;"></div>
+  <div class="particle" style="width:2px;height:2px;background:#a855f7;top:75%;left:55%;animation-delay:-3s;animation-duration:8s;"></div>
+  <div class="particle" style="width:3px;height:3px;background:#00f2fe;top:45%;left:85%;animation-delay:-4s;animation-duration:9s;"></div>
+</div>
 
-  <div class="brand">
-    <span class="brand-pill">🌸 BloomPost</span>
-  </div>
-
-  <div class="hero">
-    <h1>네이버 블로그를 <b>자동으로</b><br>꽃피우다</h1>
-    <p>체험판 10회 무료 신청. 키는 이메일로 즉시 받아보실 수 있어요.</p>
-  </div>
-
-  <!-- ── 신청 폼 ── -->
-  <form id="form" class="card" novalidate>
-    <h3 style="margin:0 0 4px;font-size:16px;font-weight:700;">체험판 신청</h3>
-    <p style="margin:0 0 4px;color:var(--text-mute);font-size:13px;">이메일로 즉시 키가 발송됩니다.</p>
-
-    <label for="name">이름 (또는 닉네임)</label>
-    <input id="name" name="name" type="text" required autocomplete="name" placeholder="예: 김미용" />
-
-    <label for="email">이메일</label>
-    <input id="email" name="email" type="email" required autocomplete="email" placeholder="키를 받을 이메일 주소" />
-
-    <label for="phone">휴대폰 번호 <span class="opt">(선택, 카톡 알림톡 안내용)</span></label>
-    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="010-1234-5678" />
-
-    <button id="submit" class="btn" type="submit">체험판 키 받기</button>
-
-    <div class="agree">
-      <input id="agree" type="checkbox" required />
-      <label for="agree">
-        체험판 신청을 위해 입력한 정보(이름·이메일·연락처)의 수집 및 키 안내 목적의 이용에 동의합니다.
-      </label>
-    </div>
-
-    <div id="msg" class="msg"></div>
-  </form>
-
-  <!-- ── 기능 소개 ── -->
-  <div class="card" style="margin-top:16px;">
-    <h3 style="margin:0 0 12px;font-size:15px;font-weight:700;">체험판으로 할 수 있는 것</h3>
-    <ul class="feature-list">
-      <li><span class="dot">1</span> 네이버 블로그 자동 포스팅 10회</li>
-      <li><span class="dot">2</span> Gemini AI로 글 자동 작성</li>
-      <li><span class="dot">3</span> 이미지 자동 첨부 + 서식 적용</li>
-      <li><span class="dot">4</span> 최대 2대의 기기에서 사용 가능</li>
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">✦</div>
+      <div class="nav-logo-text" style="font-size:16px">Bloom Post<span> Blog Auto</span> Pro</div>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#why">왜 필요한가</a></li>
+      <li><a href="#features">주요 기능</a></li>
+      <li><a href="#pricing">가격</a></li>
+      <li><a href="#trial">체험판</a></li>
+      <li><a href="#download">다운로드</a></li>
+      <li><a href="#contact">상담 문의</a></li>
     </ul>
-  </div>
-
-  <!-- ── 발급 완료 화면 ── -->
-  <div id="result" class="result card">
-    <div class="icon">✅</div>
-    <h2 id="result-title">발급 완료!</h2>
-    <p id="result-desc">입력하신 이메일로 라이선스 키를 보내드렸어요.</p>
-    <div class="key-preview" id="result-key"></div>
-    <div class="help">
-      <b>이메일이 안 보인다면?</b><br>
-      ① 스팸함을 확인해주세요.<br>
-      ② 그래도 없으면, 이 페이지를 새로고침하고 같은 이메일로 다시 신청해주세요. 같은 키를 다시 보내드립니다.
+    <div class="nav-actions">
+      <a href="#trial" class="btn btn-primary btn-sm">무료 체험하기</a>
+      <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <button class="btn" id="back-btn" type="button" style="background:#fff;color:var(--accent);border:1px solid var(--accent);">
-      처음으로
-    </button>
   </div>
+  <div id="nav-mobile-drawer" class="nav-mobile-drawer">
+    <a href="#why">왜 필요한가</a>
+    <a href="#features">주요 기능</a>
+    <a href="#pricing">가격</a>
+    <a href="#trial">체험판</a>
+    <a href="#download">다운로드</a>
+    <a href="#contact">상담 문의</a>
+    <a href="#trial" class="btn btn-primary">무료 체험하기</a>
+  </div>
+</nav>
 
-  <div class="footer">
-    © BloomPost · 문의: 받은 메일에 회신 부탁드립니다.
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-float-objects" aria-hidden="true">
+    <div class="float-obj float-obj-1 glass-card">
+      <div class="float-obj-icon" style="background:rgba(108,99,255,0.2)">📝</div>
+      <div class="float-obj-label">오늘 자동 업로드</div>
+      <div class="float-obj-value" id="fo-posts">247</div>
+      <div class="float-obj-sub">포스트 자동 발행 완료</div>
+      <div class="float-bar"><div class="float-bar-fill" style="width:78%"></div></div>
+    </div>
+    <div class="float-obj float-obj-2 glass-card">
+      <div class="float-obj-icon" style="background:rgba(79,172,254,0.2)">📈</div>
+      <div class="float-obj-label">방문자 증가율</div>
+      <div class="float-obj-value">+312%</div>
+      <div class="float-obj-sub">지난 30일 대비 트래픽</div>
+      <div class="float-bar"><div class="float-bar-fill" style="width:90%;animation-delay:-1s"></div></div>
+    </div>
+    <div class="float-obj float-obj-3 glass-card">
+      <div class="float-obj-icon" style="background:rgba(168,85,247,0.2)">🏆</div>
+      <div class="float-obj-label">네이버 SEO 점수</div>
+      <div class="float-obj-value">98점</div>
+      <div class="float-obj-sub">상위 2% 최적화 달성</div>
+      <div class="float-bar"><div class="float-bar-fill" style="width:98%;animation-delay:-2s"></div></div>
+    </div>
+    <div class="float-obj float-obj-4 glass-card">
+      <div class="float-obj-icon" style="background:rgba(0,242,254,0.15)">⏱</div>
+      <div class="float-obj-label">이번 달 절약 시간</div>
+      <div class="float-obj-value">86시간</div>
+      <div class="float-obj-sub">자동화로 확보한 여유</div>
+      <div class="float-bar"><div class="float-bar-fill" style="width:65%;animation-delay:-0.5s"></div></div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge"><span class="badge-dot"></span>Bloom Post Blog Auto Pro — 국내 최초 네이버 블로그 완전 자동화</span>
+    </div>
+    <h1 class="hero-headline">
+      네이버 블로그,<br>
+      <span class="line-accent">이제 자동으로 운영하세요</span>
+    </h1>
+    <p class="hero-subtitle">
+      콘텐츠 기획부터 <strong>키워드 최적화, 자동 발행, SEO 관리</strong>까지.<br>
+      하루 5분으로 매일 고품질 블로그를 유지하는 스마트한 방법.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#trial" class="btn btn-primary btn-lg">🚀 무료 체험 시작하기</a>
+      <a href="#why" class="btn btn-secondary btn-lg">자세히 보기</a>
+      <span class="hero-cta-note">신용카드 불필요 · 10개 무료 · 언제든지 취소 가능</span>
+    </div>
+    <div class="hero-stats glass">
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="28400" data-suffix="+">0</div>
+        <div class="hero-stat-label">누적 사용자</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="320" data-suffix="만+">0</div>
+        <div class="hero-stat-label">자동 업로드 횟수</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="99" data-suffix="%">0</div>
+        <div class="hero-stat-label">고객 만족도</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-target="4.9" data-suffix="★" data-decimal="1">0</div>
+        <div class="hero-stat-label">평균 별점</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="hero-scroll-text">스크롤</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="section-container">
+    <div style="margin-bottom:56px;">
+      <span class="section-eyebrow">문제 인식</span>
+      <h2 class="section-title">지금 이 순간에도<br><span class="gradient-text">블로그 경쟁자는 앞서나가고 있습니다</span></h2>
+      <p class="section-subtitle">수작업으로 블로그를 운영하는 방식은 시간·비용·효과 모두에서 한계에 부딪힙니다.</p>
+    </div>
+    <div class="why-problems">
+      <div class="glass-card problem-card">
+        <div class="problem-icon red">⏰</div>
+        <h3>하루 3~4시간, 콘텐츠에만 소모</h3>
+        <p>키워드 조사, 글 작성, 이미지 편집, 업로드까지 — 포스팅 하나에 드는 시간이 너무 많습니다.</p>
+        <span class="problem-stat">평균 3.8시간 / 포스팅</span>
+      </div>
+      <div class="glass-card problem-card">
+        <div class="problem-icon amber">📉</div>
+        <h3>불규칙한 업로드로 검색 노출 급락</h3>
+        <p>네이버 알고리즘은 꾸준한 업로드를 선호합니다. 며칠 쉬면 쌓아온 순위가 하루 만에 무너집니다.</p>
+        <span class="problem-stat" style="background:rgba(245,158,11,0.15);color:#f59e0b;border-color:rgba(245,158,11,0.3)">공백 3일 = 노출 -40%</span>
+      </div>
+      <div class="glass-card problem-card">
+        <div class="problem-icon blue">🤖</div>
+        <h3>경쟁자는 이미 자동화 중</h3>
+        <p>상위 노출 블로거의 68%는 이미 어떤 형태로든 자동화 툴을 사용하고 있습니다.</p>
+        <span class="problem-stat" style="background:rgba(79,172,254,0.12);color:var(--blue);border-color:rgba(79,172,254,0.3)">상위 블로거 68% 자동화 도입</span>
+      </div>
+    </div>
+    <div class="solution-banner">
+      <div class="solution-text">
+        <h3>Bloom Post가<br><span class="gradient-text">모든 것을 바꿉니다</span></h3>
+        <p style="margin-top:12px">AI가 콘텐츠를 생성하고, 스케줄러가 최적 시간에 자동 업로드합니다. 당신은 전략만 세우면 됩니다.</p>
+      </div>
+      <ul class="solution-points">
+        <li>포스팅 1건당 소요 시간 <strong style="color:var(--text-primary)">95% 단축</strong> — 3시간 → 9분</li>
+        <li>스케줄 설정 한 번으로 <strong style="color:var(--text-primary)">365일 무중단</strong> 업로드</li>
+        <li>AI 키워드 분석으로 <strong style="color:var(--text-primary)">검색 노출 3배</strong> 향상</li>
+        <li>멀티 계정 일괄 관리로 <strong style="color:var(--text-primary)">운영 효율 극대화</strong></li>
+      </ul>
+    </div>
+    <h3 class="compare-title" style="margin-top:72px">수동 운영 vs BlogAuto Pro</h3>
+    <div class="glass-card compare-wrap">
+      <table class="compare-table">
+        <thead><tr><th class="col-label">항목</th><th>수동 운영</th><th class="col-pro">BlogAuto Pro</th></tr></thead>
+        <tbody>
+          <tr><td class="col-label">포스팅 1건 소요 시간</td><td><span class="val-bad">3~4시간</span></td><td class="col-pro"><span class="val-good">5~10분</span></td></tr>
+          <tr><td class="col-label">월 운영 비용</td><td><span class="val-bad">외주 시 30만원+</span></td><td class="col-pro"><span class="val-good">29,000원/월</span></td></tr>
+          <tr><td class="col-label">업로드 일관성</td><td><span class="cross">✕</span> 불규칙</td><td class="col-pro"><span class="tick">✓</span> 365일 자동</td></tr>
+          <tr><td class="col-label">키워드 최적화</td><td><span class="cross">✕</span> 수작업 조사</td><td class="col-pro"><span class="tick">✓</span> AI 자동 분석</td></tr>
+          <tr><td class="col-label">이미지 삽입</td><td><span class="cross">✕</span> 직접 편집</td><td class="col-pro"><span class="tick">✓</span> 자동 삽입·최적화</td></tr>
+          <tr><td class="col-label">멀티 계정 관리</td><td><span class="cross">✕</span> 불가</td><td class="col-pro"><span class="tick">✓</span> 무제한 계정</td></tr>
+          <tr><td class="col-label">성과 분석</td><td><span class="cross">✕</span> 수동 집계</td><td class="col-pro"><span class="tick">✓</span> 실시간 대시보드</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:rgba(255,255,255,0.015)">
+  <div class="section-container">
+    <div class="section-header-center">
+      <span class="section-eyebrow">핵심 기능</span>
+      <h2 class="section-title">블로그 운영의 모든 것,<br><span class="gradient-text">하나의 도구로 완성</span></h2>
+      <p class="section-subtitle">6가지 강력한 자동화 기능이 당신의 블로그를 24시간 운영합니다.</p>
+    </div>
+    <div class="features-grid">
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap purple">📅</div>
+        <h3>자동 포스팅 스케줄링</h3>
+        <p>날짜·시간·빈도를 한 번 설정하면 BlogAuto Pro가 알아서 업로드합니다. AI가 최적 시간대를 자동 추천합니다.</p>
+        <div class="feature-tags"><span class="feature-tag">반복 스케줄</span><span class="feature-tag">최적 시간 추천</span><span class="feature-tag">예약 큐</span></div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap blue">🤖</div>
+        <h3>AI 기반 콘텐츠 생성 지원</h3>
+        <p>키워드를 입력하면 AI가 SEO 최적화 본문을 초안으로 생성합니다. 편집 후 바로 업로드하세요.</p>
+        <div class="feature-tags"><span class="feature-tag">GPT 연동</span><span class="feature-tag">SEO 최적화</span><span class="feature-tag">다양한 말투</span></div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap violet">🖼️</div>
+        <h3>이미지 자동 삽입 및 최적화</h3>
+        <p>관련 이미지를 자동 검색·삽입하고 네이버 권장 크기로 최적화합니다. 저작권 안전 소스 우선 사용.</p>
+        <div class="feature-tags"><span class="feature-tag">자동 크기 조정</span><span class="feature-tag">저작권 안전</span><span class="feature-tag">Alt 태그 자동</span></div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap teal">🏷️</div>
+        <h3>태그 및 카테고리 자동 설정</h3>
+        <p>본문 내용을 분석해 검색 유입에 최적화된 태그를 자동 생성하고, 카테고리를 지능적으로 분류합니다.</p>
+        <div class="feature-tags"><span class="feature-tag">AI 태그 추천</span><span class="feature-tag">자동 분류</span><span class="feature-tag">트렌드 키워드</span></div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap amber">📊</div>
+        <h3>포스팅 분석 및 통계</h3>
+        <p>조회수·공감수·검색 유입 키워드를 실시간 대시보드로 확인합니다. 데이터 기반으로 다음 전략을 수립하세요.</p>
+        <div class="feature-tags"><span class="feature-tag">실시간 대시보드</span><span class="feature-tag">유입 키워드</span><span class="feature-tag">성과 리포트</span></div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon-wrap pink">👥</div>
+        <h3>멀티 계정 관리</h3>
+        <p>네이버 블로그 계정을 여러 개 연결해 하나의 대시보드에서 통합 관리합니다. 동시에 여러 블로그를 운영하세요.</p>
+        <div class="feature-tags"><span class="feature-tag">무제한 계정 (Pro+)</span><span class="feature-tag">통합 스케줄 뷰</span><span class="feature-tag">계정별 분석</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-container">
+    <div class="section-header-center">
+      <span class="section-eyebrow">가격 플랜</span>
+      <h2 class="section-title">한 번 결제로,<br><span class="gradient-text">1년 내내 무제한</span></h2>
+      <p class="section-subtitle">매달 빠져나가는 구독료 없이, 1회 결제만으로 1년 내내 BloomPost를 무제한으로 사용하세요.</p>
+    </div>
+    <div class="pricing-grid pricing-grid-2col">
+      <div class="glass-card price-card">
+        <p class="plan-name">체험판</p>
+        <div class="price-amount"><span class="price-currency">₩</span><span class="price-number">0</span></div>
+        <p class="price-desc">10회 포스팅으로 직접 경험해보세요.<br>신용카드 정보 입력 불필요.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="feat-icon">✓</span> <strong>10회</strong> 포스팅 무료 발행</li>
+          <li><span class="feat-icon">✓</span> AI 콘텐츠 자동 생성</li>
+          <li><span class="feat-icon">✓</span> 이미지 자동 삽입</li>
+          <li><span class="feat-icon">✓</span> 자동 발행 스케줄링</li>
+          <li><span class="feat-icon">✓</span> 최대 2대 기기에서 사용 가능</li>
+          <li><span class="feat-icon">✓</span> 이메일 안내 즉시 발급</li>
+        </ul>
+        <a href="#trial" class="btn-cta btn-outline">무료로 시작하기</a>
+      </div>
+      <div class="glass-card price-card popular">
+        <div class="popular-badge">1회 결제 · 추가 비용 없음</div>
+        <p class="plan-name">PRO 1년 무제한</p>
+        <div class="price-amount"><span class="price-currency">₩</span><span class="price-number gradient-text">300,000</span><span class="price-period">/ 1년</span></div>
+        <p class="price-desc">월 25,000원 꼴. 1회 결제 후 1년 동안<br>무제한 포스팅, 모든 기능 그대로.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="feat-icon">✓</span> <strong>1년 무제한</strong> 포스팅</li>
+          <li><span class="feat-icon">✓</span> 고급 AI 콘텐츠 생성</li>
+          <li><span class="feat-icon">✓</span> 이미지 자동 삽입·최적화</li>
+          <li><span class="feat-icon">✓</span> 태그·카테고리 자동 설정</li>
+          <li><span class="feat-icon">✓</span> 최대 2대 기기에서 사용 가능</li>
+          <li><span class="feat-icon">✓</span> 신규 기능 우선 업데이트</li>
+        </ul>
+        <a href="#contact" class="btn-cta btn-gradient">카톡으로 구매 상담</a>
+      </div>
+    </div>
+    <p class="pricing-note">구독제가 아닌 <span>1회 결제 방식</span>입니다. 1년 후 갱신 시 <span>재구매 할인</span>이 제공됩니다. 부가세 별도.</p>
+  </div>
+</section>
+
+<!-- TRIAL -->
+<section id="trial" class="section-padding">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:12px"><span class="section-label">FREE TRIAL</span></div>
+    <div style="text-align:center">
+      <h2 class="section-title">지금 바로 <span class="gradient-text">10개 포스팅</span><br>무료로 체험하세요</h2>
+      <p class="section-subtitle" style="margin:0 auto">신용카드 없이, 설치 5분 안에 자동 포스팅을 경험해보세요.</p>
+    </div>
+    <div class="trial-grid" style="margin-top:60px">
+      <div>
+        <div class="glass-form" id="trial-form-wrapper">
+          <form id="trial-form" novalidate>
+            <div class="form-group"><label for="trial-name">이름</label><input type="text" id="trial-name" placeholder="홍길동" /><span class="form-error-msg" id="trial-name-err">이름을 입력해주세요.</span></div>
+            <div class="form-group"><label for="trial-email">이메일</label><input type="email" id="trial-email" placeholder="example@naver.com" /><span class="form-error-msg" id="trial-email-err">올바른 이메일을 입력해주세요.</span></div>
+            <div class="form-group"><label for="trial-phone">전화번호</label><input type="tel" id="trial-phone" placeholder="010-0000-0000" /><span class="form-error-msg" id="trial-phone-err">전화번호를 입력해주세요.</span></div>
+            <div class="form-group"><label for="trial-blog">네이버 블로그 URL</label><input type="url" id="trial-blog" placeholder="https://blog.naver.com/yourname" /><span class="form-error-msg" id="trial-blog-err">블로그 URL을 입력해주세요.</span></div>
+            <div class="form-group"><label for="trial-purpose">체험 목적</label>
+              <select id="trial-purpose"><option value="" disabled selected>목적을 선택해주세요</option><option value="personal">개인 블로그</option><option value="marketing">마케팅</option><option value="store">스토어 운영</option><option value="other">기타</option></select>
+              <span class="form-error-msg" id="trial-purpose-err">체험 목적을 선택해주세요.</span>
+            </div>
+            <button type="submit" class="btn btn-primary trial-form-submit" id="trial-submit-btn" style="width:100%;justify-content:center;border-radius:12px;padding:16px">✓ 무료 체험 신청하기</button>
+          </form>
+          <div class="trial-success" id="trial-success">
+            <div class="trial-success-icon">🎉</div>
+            <h3>신청이 완료되었습니다!</h3>
+            <p>입력하신 이메일로 체험판 다운로드 링크와 임시 라이선스 키를 보내드렸습니다.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="glass-card benefit-card">
+          <h3>체험판으로 받을 수 있는 것들</h3>
+          <p class="subtitle">무료 신청 후 즉시 시작할 수 있어요</p>
+          <ul class="benefit-list">
+            <li><span class="benefit-icon">✍️</span><div><strong>10개 자동 포스팅 크레딧</strong>AI가 작성한 완성도 높은 포스팅 10개를 무료로 발행</div></li>
+            <li><span class="benefit-icon">🔍</span><div><strong>핵심 기능 전체 미리보기</strong>키워드 분석, 이미지 자동 삽입, 예약 발행 등 모든 기능 체험</div></li>
+            <li><span class="benefit-icon">💾</span><div><strong>정식 전환 시 데이터 100% 유지</strong>체험 중 생성한 템플릿·키워드 데이터가 그대로 이어짐</div></li>
+            <li><span class="benefit-icon">🤝</span><div><strong>1:1 온보딩 지원</strong>전담 매니저가 설치부터 첫 포스팅까지 도움</div></li>
+            <li><span class="benefit-icon">🎁</span><div><strong>신규 기능 우선 접근권</strong>체험 신청자에게 베타 기능 최우선 제공</div></li>
+          </ul>
+          <div class="benefit-note">🟢 <span>별도 결제 정보 없이 신청 가능하며, 체험 기간 종료 후 자동으로 과금되지 않습니다.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="section-padding">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:12px"><span class="section-label">DOWNLOAD</span></div>
+    <div style="text-align:center">
+      <h2 class="section-title">지금 바로 <span class="gradient-text">다운로드</span>하세요</h2>
+      <p class="section-subtitle" style="margin:0 auto">Windows와 macOS를 모두 지원합니다. 설치 후 라이선스 키를 입력하면 바로 시작!</p>
+    </div>
+    <div class="download-os-grid">
+      <div class="glass-card os-card primary-os">
+        <div class="os-icon">🖥</div>
+        <h3>Windows</h3>
+        <p class="os-sub">Windows 11 / 10 (64-bit)</p>
+        <span class="os-version-badge">최신 버전 자동</span>
+        <span class="os-date">클릭 시 즉시 다운로드 시작</span>
+        <a href="https://github.com/overlose88-create/bloompost/releases/latest/download/BloomPost_windows.zip"
+           class="btn btn-primary" style="width:100%;justify-content:center;border-radius:12px;text-decoration:none">⬇ Windows 다운로드 (.zip)</a>
+        <p style="margin-top:12px;font-size:0.8rem;color:var(--text-muted)">압축 해제 후 BloomPost.exe 실행</p>
+      </div>
+      <div class="glass-card os-card">
+        <div class="os-icon">🍎</div>
+        <h3>macOS</h3>
+        <p class="os-sub">Apple Silicon (M1~M4) / Intel</p>
+        <span class="os-version-badge">최신 버전 자동</span>
+        <span class="os-date">클릭 시 즉시 다운로드 시작</span>
+        <a href="https://github.com/overlose88-create/bloompost/releases/latest/download/BloomPost_mac.zip"
+           class="btn btn-secondary" style="width:100%;justify-content:center;border-radius:12px;text-decoration:none">⬇ macOS 다운로드 (.zip)</a>
+        <p style="margin-top:12px;font-size:0.8rem;color:var(--text-muted)">압축 해제 후 BloomPost.app 실행</p>
+      </div>
+    </div>
+    <div style="margin-top:56px">
+      <div class="glass-card sysreq-card">
+        <p class="sysreq-title">⚙️ 시스템 요구사항</p>
+        <div class="sysreq-grid">
+          <div class="sysreq-item"><span class="req-label">Windows OS</span><span class="req-value">Windows 10/11 (64-bit)</span></div>
+          <div class="sysreq-item"><span class="req-label">macOS</span><span class="req-value">macOS 12 Monterey 이상</span></div>
+          <div class="sysreq-item"><span class="req-label">RAM</span><span class="req-value">최소 4 GB (권장 8 GB)</span></div>
+          <div class="sysreq-item"><span class="req-label">저장공간</span><span class="req-value">500 MB 이상</span></div>
+          <div class="sysreq-item"><span class="req-label">인터넷</span><span class="req-value">상시 연결 필요</span></div>
+          <div class="sysreq-item"><span class="req-label">기타</span><span class="req-value">네이버 계정 필수</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD MODAL — 카톡 상담 안내 -->
+<div class="modal-overlay" id="license-modal">
+  <div class="modal-box">
+    <button class="modal-close-btn" onclick="closeLicenseModal()">×</button>
+    <div class="modal-icon">💬</div>
+    <h3>다운로드 전 체험 먼저!</h3>
+    <p>무료 체험 10회를 먼저 신청하시거나,<br>구매 상담을 원하시면 카카오채널로 문의해주세요.<br>상담 후 결제 완료 시 라이선스 키를 발급해드립니다.</p>
+    <div class="modal-actions">
+      <a href="#trial" class="btn btn-secondary" onclick="closeLicenseModal()">무료 체험 신청</a>
+      <a href="#contact" class="btn btn-primary" onclick="closeLicenseModal()">카톡 상담하기</a>
+    </div>
   </div>
 </div>
 
+<!-- CONTACT / 카톡 상담 -->
+<section id="contact" style="padding:100px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,193,7,0.08) 0%,transparent 65%);pointer-events:none;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <!-- 구매 흐름 -->
+    <div style="text-align:center;margin-bottom:64px;">
+      <span class="section-label">구매 안내</span>
+      <h2 class="section-title">체험 후 마음에 드셨나요?<br><span class="gradient-text">딱 3단계로 시작하세요</span></h2>
+      <p class="section-subtitle" style="margin:0 auto;">복잡한 결제 창 없이, 카톡 상담 한 번으로 모든 게 끝납니다.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:72px;">
+      <div class="glass-card" style="padding:36px 28px;text-align:center;">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(108,99,255,0.3),rgba(79,172,254,0.3));border:1px solid rgba(108,99,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">1</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">무료 체험 신청</h3>
+        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">위 폼에서 신청하시면 10개 포스팅을 무료로 체험할 수 있습니다. 직접 효과를 확인해보세요.</p>
+      </div>
+      <div class="glass-card" style="padding:36px 28px;text-align:center;border-color:rgba(255,193,7,0.3);background:rgba(255,193,7,0.06);">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(255,193,7,0.4),rgba(255,152,0,0.3));border:1px solid rgba(255,193,7,0.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">2</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">카카오톡 상담</h3>
+        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">체험 후 궁금한 점이나 플랜 선택이 고민되시면 카카오채널로 편하게 문의해주세요. 친절히 안내해드립니다.</p>
+      </div>
+      <div class="glass-card" style="padding:36px 28px;text-align:center;">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(52,211,153,0.3),rgba(16,185,129,0.3));border:1px solid rgba(52,211,153,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">3</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">결제 &amp; 라이선스 발급</h3>
+        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">결제 완료 후 라이선스 키를 즉시 발급해드립니다. 키 입력 한 번으로 바로 사용 시작!</p>
+      </div>
+    </div>
+
+    <!-- 카톡 CTA 카드 -->
+    <div class="glass-card" style="padding:56px 48px;text-align:center;background:linear-gradient(135deg,rgba(255,193,7,0.10) 0%,rgba(255,152,0,0.06) 100%);border-color:rgba(255,193,7,0.25);max-width:680px;margin:0 auto;">
+      <div style="font-size:3rem;margin-bottom:20px;">💬</div>
+      <h3 style="font-size:1.6rem;font-weight:800;color:var(--text-primary);margin-bottom:12px;">카카오채널로 바로 문의하세요</h3>
+      <p style="font-size:1rem;color:var(--text-secondary);line-height:1.7;margin-bottom:32px;">가격, 기능, 설치 방법 등 무엇이든 물어보세요.<br>평일 09:00 – 18:00 실시간 응대 | 그 외 시간 메시지 남겨주시면 확인 후 답변</p>
+      <a href="https://pf.kakao.com/_YOUR_KAKAO_CHANNEL" target="_blank"
+         style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,#FEE500,#FFD700);color:#3A1D00;font-size:1.1rem;font-weight:800;border-radius:50px;text-decoration:none;box-shadow:0 8px 28px rgba(255,193,7,0.4);transition:all 0.25s ease;"
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 36px rgba(255,193,7,0.6)'"
+         onmouseout="this.style.transform='';this.style.boxShadow='0 8px 28px rgba(255,193,7,0.4)'">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#3A1D00"><path d="M12 3C6.477 3 2 6.477 2 11c0 2.88 1.58 5.42 4 6.97V21l3.47-1.85C10.27 19.37 11.12 19.5 12 19.5c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+        카카오채널 상담하기
+      </a>
+      <p style="margin-top:20px;font-size:0.83rem;color:var(--text-muted);">
+        카카오채널 ID: <strong style="color:var(--text-soft)">@BloomPost</strong> 검색하셔도 됩니다
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">✦ Bloom Post Blog Auto Pro</div>
+        <p>Bloom Post Blog Auto Pro — 네이버 블로그 자동화의 새로운 기준.<br>AI가 키워드를 분석하고, 글을 쓰고, 예약까지 알아서 처리합니다.</p>
+        <div class="social-links">
+          <a href="mailto:support@blogauto.kr" class="social-link">✉ 이메일 문의</a>
+          <a href="https://pf.kakao.com/_YOUR_KAKAO_CHANNEL" target="_blank" class="social-link">💬 카카오채널 @BloomPost</a>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <h4>서비스</h4>
+        <ul>
+          <li><a href="#why">왜 필요한가</a></li>
+          <li><a href="#features">주요 기능</a></li>
+          <li><a href="#trial">무료 체험 신청</a></li>
+          <li><a href="#download">프로그램 다운로드</a></li>
+          <li><a href="#contact">카톡 상담 문의</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav">
+        <h4>정보 &amp; 지원</h4>
+        <ul>
+          <li><a href="#">이용약관</a></li>
+          <li><a href="#">개인정보처리방침</a></li>
+          <li><a href="#">고객지원 센터</a></li>
+          <li><a href="#">업데이트 노트</a></li>
+          <li><a href="#">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 BlogAuto Pro. All rights reserved.<br>
+        <span style="font-size:0.78rem">사업자등록번호: 000-00-00000 | 통신판매업신고: 제0000-서울강남-0000호</span>
+      </p>
+      <p class="footer-tagline">Powered by <span>AI &amp; Bloom Post Engine v1.0</span></p>
+    </div>
+  </div>
+</footer>
+
 <script>
 (function(){
-  const cfg = window.__BLOOMPOST_CONFIG__ || {};
-  const ENDPOINT = cfg.SUPABASE_URL ? cfg.SUPABASE_URL + "/functions/v1/issue-trial" : "";
-  const ANON_KEY = cfg.SUPABASE_ANON_KEY || "";
+  'use strict';
 
-  const form    = document.getElementById("form");
-  const result  = document.getElementById("result");
-  const msg     = document.getElementById("msg");
-  const submit  = document.getElementById("submit");
-  const agree   = document.getElementById("agree");
-  const inputs  = ["name","email","phone"].map(id => document.getElementById(id));
-  const back    = document.getElementById("back-btn");
-  const rTitle  = document.getElementById("result-title");
-  const rDesc   = document.getElementById("result-desc");
-  const rKey    = document.getElementById("result-key");
+  /* NAV scroll */
+  var nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', function(){ nav.classList[window.scrollY > 20 ? 'add' : 'remove']('scrolled'); }, {passive:true});
 
-  function showMsg(text, level){
-    msg.textContent = text;
-    msg.className = "msg show " + (level || "error");
+  /* NAV hamburger */
+  var hamburger = document.getElementById('nav-hamburger-btn');
+  var drawer = document.getElementById('nav-mobile-drawer');
+  var spans = hamburger.querySelectorAll('span');
+  var isOpen = false;
+  hamburger.addEventListener('click', function(){
+    isOpen = !isOpen;
+    drawer.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    spans[0].style.transform = isOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+    spans[1].style.opacity = isOpen ? '0' : '';
+    spans[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ isOpen=false; drawer.classList.remove('open'); hamburger.setAttribute('aria-expanded',false); spans[0].style.transform=spans[2].style.transform=''; spans[1].style.opacity=''; }); });
+
+  /* Scroll fade-in */
+  var fadeEls = document.querySelectorAll('.fade-in-up');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, {threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+    fadeEls.forEach(function(el){ obs.observe(el); });
+  } else { fadeEls.forEach(function(el){ el.classList.add('visible'); }); }
+
+  /* Hero stat counter */
+  var statEls = document.querySelectorAll('.hero-stat-value');
+  var triggered = false;
+  function animateCounter(el){
+    var target = parseFloat(el.dataset.target);
+    var suffix = el.dataset.suffix||'';
+    var decimal = parseInt(el.dataset.decimal||'0',10);
+    var start = null;
+    (function step(ts){
+      if(!start) start=ts;
+      var p = Math.min((ts-start)/2000,1);
+      var e = 1-Math.pow(1-p,3);
+      var v = e*target;
+      el.textContent = (decimal>0 ? v.toFixed(decimal) : Math.round(v).toLocaleString('ko-KR')) + suffix;
+      if(p<1) requestAnimationFrame(step);
+    })(performance.now());
   }
-  function hideMsg(){ msg.className = "msg"; msg.textContent = ""; }
+  var statsEl = document.querySelector('.hero-stats');
+  if(statsEl){
+    var so = new IntersectionObserver(function(entries){ if(entries[0].isIntersecting && !triggered){ triggered=true; statEls.forEach(animateCounter); so.disconnect(); } },{threshold:0.4});
+    so.observe(statsEl);
+  }
 
-  back.addEventListener("click", () => {
-    result.classList.remove("show");
-    form.style.display = "block";
-    form.reset();
-    hideMsg();
-    inputs[0].focus();
-  });
+  /* Live post counter */
+  var foEl = document.getElementById('fo-posts');
+  if(foEl){ setInterval(function(){ if(Math.random()>0.6){ foEl.textContent=parseInt(foEl.textContent,10)+Math.floor(Math.random()*3+1); foEl.style.color='#a78bfa'; setTimeout(function(){ foEl.style.color='#fff'; },300); } },3500); }
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    hideMsg();
+  /* Billing toggle */
+  var toggle = document.getElementById('billing-toggle-input');
+  var lblM = document.getElementById('lbl-monthly');
+  var lblA = document.getElementById('lbl-annual');
+  if(toggle){ toggle.addEventListener('change',function(){ document.body.classList.toggle('annual',this.checked); lblM.classList.toggle('active',!this.checked); lblA.classList.toggle('active',this.checked); }); }
 
-    if (!ENDPOINT || !ANON_KEY) {
-      showMsg("설정이 완료되지 않았습니다. 관리자에게 문의해주세요. (Supabase URL/key 미설정)", "error");
-      return;
-    }
+  /* Form validation */
+  function validateEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+  function setErr(id,errId,show){ var el=document.getElementById(id),err=document.getElementById(errId); if(!el||!err)return; el.classList.toggle('error',show); err.classList.toggle('visible',show); }
 
-    const name  = inputs[0].value.trim();
-    const email = inputs[1].value.trim();
-    const phone = inputs[2].value.trim();
+  /* ── Supabase Edge Function 설정 ──
+     체험판 키 자동 발급 시스템에 연결됨 (issue-trial 함수) */
+  var SUPABASE_URL      = 'https://ojhrflspttafwnhgghcc.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_C9iQ3KwX1zqJNUIZEkb27w_uECkOEgr';
+  var TRIAL_ENDPOINT    = SUPABASE_URL + '/functions/v1/issue-trial';
 
-    if (!name)  return showMsg("이름을 입력해주세요.");
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showMsg("올바른 이메일 주소를 입력해주세요.");
-    if (!agree.checked) return showMsg("개인정보 수집 및 이용에 동의해주세요.");
+  /* Trial form */
+  var trialForm = document.getElementById('trial-form');
+  if(trialForm){
+    trialForm.addEventListener('submit',function(e){
+      e.preventDefault(); var valid=true;
+      var n=document.getElementById('trial-name'),em=document.getElementById('trial-email'),ph=document.getElementById('trial-phone'),b=document.getElementById('trial-blog'),p=document.getElementById('trial-purpose');
+      if(!n.value.trim()){ setErr('trial-name','trial-name-err',true); valid=false; } else setErr('trial-name','trial-name-err',false);
+      if(!validateEmail(em.value)){ setErr('trial-email','trial-email-err',true); valid=false; } else setErr('trial-email','trial-email-err',false);
+      if(!ph.value.trim()){ setErr('trial-phone','trial-phone-err',true); valid=false; } else setErr('trial-phone','trial-phone-err',false);
+      if(!b.value.trim()){ setErr('trial-blog','trial-blog-err',true); valid=false; } else setErr('trial-blog','trial-blog-err',false);
+      if(!p.value){ setErr('trial-purpose','trial-purpose-err',true); valid=false; } else setErr('trial-purpose','trial-purpose-err',false);
+      if(!valid) return;
 
-    submit.disabled = true;
-    submit.textContent = "발송 중...";
+      var btn=document.getElementById('trial-submit-btn');
+      btn.disabled=true; btn.textContent='발송 중...';
 
-    try {
-      const resp = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": ANON_KEY,
-          "Authorization": "Bearer " + ANON_KEY,
-        },
-        body: JSON.stringify({ name, email, phone }),
-      });
+      var payload = {
+        name:     n.value.trim(),
+        email:    em.value.trim(),
+        phone:    ph.value.trim(),
+        blog_url: b.value.trim(),
+        purpose:  p.options[p.selectedIndex].text
+      };
 
-      let data = {};
-      try { data = await resp.json(); } catch(_) {}
-
-      if (resp.ok && data.ok) {
-        // 신규 또는 기존 발급
-        form.style.display = "none";
-        result.classList.add("show");
-        if (data.already_issued) {
-          rTitle.textContent = "이미 발급된 키예요";
-          rDesc.textContent  = "동일한 라이선스 키를 다시 이메일로 보내드렸어요.";
-        } else {
-          rTitle.textContent = "발급 완료!";
-          rDesc.textContent  = data.email_sent === false
-            ? "키는 발급됐지만 이메일 발송에 실패했어요. 잠시 후 다시 시도해주세요."
-            : "입력하신 이메일로 라이선스 키를 보내드렸어요.";
+      function showSuccess(opts){
+        opts = opts || {};
+        var formEl = document.getElementById('trial-form');
+        var successEl = document.getElementById('trial-success');
+        if(formEl) formEl.style.display = 'none';
+        if(successEl){
+          /* 이미 발급된 경우 vs 신규 발급 메시지 분기 */
+          var titleEl = successEl.querySelector('h3');
+          var descEl  = successEl.querySelector('p');
+          if(opts.alreadyIssued){
+            if(titleEl) titleEl.textContent = '이미 발급된 키예요';
+            if(descEl)  descEl.textContent  = '입력하신 이메일로 동일한 라이선스 키를 다시 보내드렸어요. 스팸함도 함께 확인해주세요.';
+          }else if(opts.emailFailed){
+            if(titleEl) titleEl.textContent = '키는 발급됐어요';
+            if(descEl)  descEl.textContent  = '하지만 이메일 발송에 실패했습니다. 잠시 후 같은 이메일로 다시 신청해주세요.';
+          }else{
+            if(titleEl) titleEl.textContent = '신청이 완료되었습니다!';
+            if(descEl)  descEl.textContent  = '입력하신 이메일로 체험판 라이선스 키를 보내드렸어요. 메일이 안 보이면 스팸함도 확인해주세요.';
+          }
+          successEl.classList.add('show');
         }
-        rKey.textContent = data.license_key_masked || "키 확인은 이메일에서 해주세요";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        showMsg(data.error || "발급 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.",
-                resp.status === 429 ? "warn" : "error");
       }
-    } catch (err) {
-      showMsg("네트워크 오류가 발생했어요. 잠시 후 다시 시도해주세요.");
-    } finally {
-      submit.disabled = false;
-      submit.textContent = "체험판 키 받기";
-    }
-  });
+
+      function showInlineError(msg){
+        var existing = document.getElementById('trial-inline-error');
+        if(!existing){
+          existing = document.createElement('div');
+          existing.id = 'trial-inline-error';
+          existing.style.cssText = 'margin-top:14px;padding:12px 14px;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.4);border-radius:10px;color:#fca5a5;font-size:14px;line-height:1.5;';
+          trialForm.appendChild(existing);
+        }
+        existing.textContent = msg;
+      }
+
+      fetch(TRIAL_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(function(resp){
+        return resp.json().then(function(data){
+          return { status: resp.status, ok: resp.ok, data: data };
+        }).catch(function(){ return { status: resp.status, ok: resp.ok, data: {} }; });
+      })
+      .then(function(result){
+        var data = result.data || {};
+        if(result.ok && data.ok){
+          showSuccess({
+            alreadyIssued: !!data.already_issued,
+            emailFailed:   data.email_sent === false
+          });
+        }else{
+          showInlineError(data.error || '발급 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.');
+          btn.disabled = false; btn.textContent = '✓ 무료 체험 신청하기';
+        }
+      })
+      .catch(function(){
+        showInlineError('네트워크 오류가 발생했어요. 잠시 후 다시 시도해주세요.');
+        btn.disabled = false; btn.textContent = '✓ 무료 체험 신청하기';
+      });
+    });
+  }
+
+  /* License form */
+  var licForm = document.getElementById('license-form');
+  if(licForm){
+    licForm.addEventListener('submit',function(e){
+      e.preventDefault(); var valid=true;
+      var n=document.getElementById('lic-name'),em=document.getElementById('lic-email'),pl=document.getElementById('lic-plan'),o=document.getElementById('lic-order');
+      if(!n.value.trim()){ setErr('lic-name','lic-name-err',true); valid=false; } else setErr('lic-name','lic-name-err',false);
+      if(!validateEmail(em.value)){ setErr('lic-email','lic-email-err',true); valid=false; } else setErr('lic-email','lic-email-err',false);
+      if(!pl.value){ setErr('lic-plan','lic-plan-err',true); valid=false; } else setErr('lic-plan','lic-plan-err',false);
+      if(!o.value.trim()){ setErr('lic-order','lic-order-err',true); valid=false; } else setErr('lic-order','lic-order-err',false);
+      if(!valid) return;
+      var btn=document.getElementById('lic-submit-btn'); btn.disabled=true; btn.textContent='처리 중...';
+      setTimeout(function(){ document.getElementById('license-form').style.display='none'; document.getElementById('license-success').classList.add('show'); },1200);
+    });
+  }
+
+  /* Modal */
+  window.openLicenseModal = function(){ var m=document.getElementById('license-modal'); m.classList.add('open'); document.body.style.overflow='hidden'; };
+  window.closeLicenseModal = function(){ var m=document.getElementById('license-modal'); m.classList.remove('open'); document.body.style.overflow=''; };
+  var mo=document.getElementById('license-modal');
+  if(mo){ mo.addEventListener('click',function(e){ if(e.target===mo) window.closeLicenseModal(); }); }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') window.closeLicenseModal(); });
+
+  /* FAQ accordion */
+  window.toggleFaq = function(btn){
+    var item=btn.closest('.faq-item');
+    var isOpen=item.classList.contains('open');
+    item.parentElement.querySelectorAll('.faq-item').forEach(function(s){ s.classList.remove('open'); });
+    if(!isOpen) item.classList.add('open');
+  };
+
 })();
 </script>
-
 </body>
 </html>
