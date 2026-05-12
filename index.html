@@ -464,23 +464,122 @@
   .ig-license-tip code { background:rgba(108,99,255,0.2); color:#c9b8ff; padding:2px 8px; border-radius:6px; font-family:"SF Mono","Menlo",monospace; font-size:0.88em; }
   .ig-license-actions { display:flex; gap:10px; flex-wrap:wrap; }
 
-  /* RESPONSIVE */
-  @media(max-width:900px) { .trial-grid,.license-grid{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr 1fr} .footer-brand{grid-column:1/-1} }
+  /* ────────────────────────────────────────────────── */
+  /*  PURCHASE FLOW (구매 안내 3단계) — 명시적 클래스    */
+  /* ────────────────────────────────────────────────── */
+  .purchase-flow-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:72px; }
+  .purchase-flow-card { padding:36px 28px; text-align:center; }
+  .purchase-flow-card-highlight { border-color:rgba(255,193,7,0.3); background:rgba(255,193,7,0.06); }
+  .purchase-flow-num { width:56px; height:56px; border-radius:50%; border:1px solid; display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:var(--text-primary); margin:0 auto 20px; }
+  .purchase-flow-title { font-size:1.1rem; font-weight:700; color:var(--text-primary); margin-bottom:10px; }
+  .purchase-flow-desc { font-size:0.9rem; color:var(--text-secondary); line-height:1.65; }
+
+  /* ────────────────────────────────────────────────── */
+  /*  RESPONSIVE — 모바일 가독성 강화                    */
+  /* ────────────────────────────────────────────────── */
+
+  /* 태블릿 / 작은 데스크탑 */
+  @media(max-width:900px) {
+    .trial-grid,.license-grid{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .footer-brand{grid-column:1/-1}
+    /* 구매 안내 3-card 그리드 — 스택 */
+    .purchase-flow-grid { grid-template-columns:1fr; max-width:480px; margin-left:auto; margin-right:auto; gap:16px; }
+    .purchase-flow-card { padding:28px 24px; }
+  }
+
+  /* 모바일 가로 / 큰 폰 (620~768px) */
+  @media(max-width:768px) {
+    section { padding:72px 0 !important; }
+    .section-title { font-size:clamp(26px,6.5vw,36px) !important; line-height:1.25 !important; }
+    .section-subtitle { font-size:15.5px; line-height:1.7; }
+    .container,.section-container { padding:0 20px; }
+    .glass-card { border-radius:14px; }
+    /* 큰 인라인 패딩(56px 48px, 36px 28px 등) 자동 축소 */
+    .glass-card[style*="padding:56px"] { padding:36px 24px !important; }
+    .glass-card[style*="padding:36px 28px"] { padding:28px 22px !important; }
+    .glass-card[style*="padding:48px 56px"] { padding:32px 24px !important; }
+    h2[style*="font-size:clamp"] { font-size:clamp(22px,5.5vw,30px) !important; }
+    h3[style*="font-size:clamp"] { font-size:clamp(20px,4.8vw,26px) !important; }
+  }
+
+  /* 일반 모바일 (~620px) */
   @media(max-width:620px) {
-    section{padding:80px 0}
-    .glass-form{padding:28px 22px}
-    .footer-grid{grid-template-columns:1fr}
-    .modal-box{padding:32px 24px}
-    .modal-actions{flex-direction:column}
-    .modal-actions .btn-primary,.modal-actions .btn-secondary{width:100%}
-    .ig-step{padding:18px 18px;gap:14px}
-    .ig-step-num{width:36px;height:36px;font-size:0.95rem}
-    .ig-trouble{padding:22px}
-    .ig-license-tip{flex-direction:column;padding:24px;gap:14px}
-    .ig-license-icon{font-size:2.2rem}
-    .ig-codebox{flex-direction:column;align-items:stretch}
-    .ig-codebox code{text-align:left}
-    .ig-copy-btn{align-self:flex-end}
+    section { padding:64px 0 !important; }
+    .container,.section-container { padding:0 18px; }
+    .section-title { font-size:clamp(24px,7vw,30px) !important; }
+    .section-subtitle { font-size:14.5px; line-height:1.7; }
+    .section-label { font-size:11.5px; padding:5px 13px; }
+    .glass-form { padding:24px 20px; }
+    .glass-card { border-radius:12px; }
+    .footer-grid { grid-template-columns:1fr; }
+    .modal-box { padding:32px 24px; }
+    .modal-actions { flex-direction:column; }
+    .modal-actions .btn-primary,.modal-actions .btn-secondary { width:100%; }
+
+    /* 다운로드 카드 — 폰에서 시각적 균형 */
+    .download-os-grid { gap:16px; margin-top:36px; }
+    .os-card { padding:28px 22px !important; }
+    .os-icon { font-size:2.4rem !important; }
+
+    /* 시스템 요구사항 그리드 — 2열로 */
+    .sysreq-grid { grid-template-columns:1fr 1fr !important; gap:14px; }
+    .sysreq-card { padding:24px 20px !important; }
+
+    /* 설치 가이드 — 모바일 최적화 */
+    .ig-tabs { max-width:none; gap:6px; }
+    .ig-tab { padding:11px 12px; font-size:0.9rem; }
+    .ig-tab-icon { font-size:1rem; }
+    .ig-steps { gap:10px; margin-bottom:24px; }
+    .ig-step { padding:16px 16px; gap:12px; flex-direction:row; }
+    .ig-step-num { width:34px; height:34px; font-size:0.9rem; }
+    .ig-step.success .ig-step-num { font-size:1rem; }
+    .ig-step-body h4 { font-size:0.98rem; gap:8px; }
+    .ig-step-body p { font-size:0.88rem; line-height:1.55; }
+    .ig-step-body code { font-size:0.82em; padding:1px 6px; }
+    .ig-badge { font-size:0.65rem; padding:2px 8px; }
+    .ig-trouble { padding:22px 18px; }
+    .ig-trouble-head h4 { font-size:1.02rem; }
+    .ig-trouble-item h5 { font-size:0.92rem; }
+    .ig-trouble-item p { font-size:0.86rem; line-height:1.6; }
+    .ig-codebox { flex-direction:column; align-items:stretch; gap:8px; padding:10px 12px; }
+    .ig-codebox code { text-align:left; font-size:0.78rem; }
+    .ig-copy-btn { align-self:flex-end; padding:5px 12px; font-size:0.72rem; }
+    .ig-license-tip { flex-direction:column; padding:24px 20px; gap:14px; text-align:left; }
+    .ig-license-icon { font-size:2.2rem; }
+    .ig-license-tip h4 { font-size:1rem; }
+    .ig-license-tip p { font-size:0.88rem; }
+    .ig-license-actions .btn { flex:1; text-align:center; }
+
+    /* 가격/플랜 카드 */
+    .pricing-grid,.pricing-grid-2col { max-width:none; }
+
+    /* 인라인 패딩 보정 (구매 안내 카드 등) */
+    .glass-card[style*="padding:36px 28px"] { padding:24px 18px !important; }
+    .glass-card[style*="padding:56px 48px"] { padding:28px 20px !important; }
+
+    /* 인라인 큰 폰트 보정 */
+    h3[style*="font-size:1.1rem"] { font-size:1rem !important; }
+    p[style*="font-size:1rem"] { font-size:0.92rem !important; }
+    p[style*="font-size:1.05rem"] { font-size:0.95rem !important; }
+    p[style*="font-size:0.95rem"] { font-size:0.88rem !important; }
+
+    /* 히어로 영역 */
+    .hero-content { padding:0 6px; }
+  }
+
+  /* 초소형 폰 (~400px) — iPhone SE 등 */
+  @media(max-width:400px) {
+    .container,.section-container { padding:0 14px; }
+    section { padding:56px 0 !important; }
+    .section-title { font-size:22px !important; }
+    .section-subtitle { font-size:13.5px; }
+    .ig-step { padding:14px 14px; gap:10px; }
+    .ig-step-num { width:30px; height:30px; font-size:0.85rem; }
+    .ig-step-body h4 { font-size:0.94rem; }
+    .ig-step-body p { font-size:0.84rem; }
+    .ig-tab { padding:10px 8px; font-size:0.85rem; }
+    .glass-form { padding:20px 16px; }
   }
   </style>
 </head>
@@ -1088,21 +1187,21 @@
       <p class="section-subtitle" style="margin:0 auto;">복잡한 결제 창 없이, 카톡 상담 한 번으로 모든 게 끝납니다.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:72px;">
-      <div class="glass-card" style="padding:36px 28px;text-align:center;">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(108,99,255,0.3),rgba(79,172,254,0.3));border:1px solid rgba(108,99,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">1</div>
-        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">무료 체험 신청</h3>
-        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">위 폼에서 신청하시면 10개 포스팅을 무료로 체험할 수 있습니다. 직접 효과를 확인해보세요.</p>
+    <div class="purchase-flow-grid">
+      <div class="purchase-flow-card glass-card">
+        <div class="purchase-flow-num" style="background:linear-gradient(135deg,rgba(108,99,255,0.3),rgba(79,172,254,0.3));border-color:rgba(108,99,255,0.4);">1</div>
+        <h3 class="purchase-flow-title">무료 체험 신청</h3>
+        <p class="purchase-flow-desc">위 폼에서 신청하시면 10개 포스팅을 무료로 체험할 수 있습니다. 직접 효과를 확인해보세요.</p>
       </div>
-      <div class="glass-card" style="padding:36px 28px;text-align:center;border-color:rgba(255,193,7,0.3);background:rgba(255,193,7,0.06);">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(255,193,7,0.4),rgba(255,152,0,0.3));border:1px solid rgba(255,193,7,0.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">2</div>
-        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">카카오톡 상담</h3>
-        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">체험 후 궁금한 점이나 플랜 선택이 고민되시면 카카오채널로 편하게 문의해주세요. 친절히 안내해드립니다.</p>
+      <div class="purchase-flow-card purchase-flow-card-highlight glass-card">
+        <div class="purchase-flow-num" style="background:linear-gradient(135deg,rgba(255,193,7,0.4),rgba(255,152,0,0.3));border-color:rgba(255,193,7,0.5);">2</div>
+        <h3 class="purchase-flow-title">카카오톡 상담</h3>
+        <p class="purchase-flow-desc">체험 후 궁금한 점이나 플랜 선택이 고민되시면 카카오채널로 편하게 문의해주세요. 친절히 안내해드립니다.</p>
       </div>
-      <div class="glass-card" style="padding:36px 28px;text-align:center;">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,rgba(52,211,153,0.3),rgba(16,185,129,0.3));border:1px solid rgba(52,211,153,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 20px;">3</div>
-        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">결제 &amp; 라이선스 발급</h3>
-        <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;">결제 완료 후 라이선스 키를 즉시 발급해드립니다. 키 입력 한 번으로 바로 사용 시작!</p>
+      <div class="purchase-flow-card glass-card">
+        <div class="purchase-flow-num" style="background:linear-gradient(135deg,rgba(52,211,153,0.3),rgba(16,185,129,0.3));border-color:rgba(52,211,153,0.4);">3</div>
+        <h3 class="purchase-flow-title">결제 &amp; 라이선스 발급</h3>
+        <p class="purchase-flow-desc">결제 완료 후 라이선스 키를 즉시 발급해드립니다. 키 입력 한 번으로 바로 사용 시작!</p>
       </div>
     </div>
 
