@@ -402,9 +402,86 @@
   .footer-tagline { font-size:0.82rem;color:var(--text-muted); }
   .footer-tagline span { color:var(--primary-light);font-weight:600; }
 
+  /* ────────────────────────────────────────────────── */
+  /*  INSTALL GUIDE                                     */
+  /* ────────────────────────────────────────────────── */
+  .install-guide-wrap { max-width:920px; margin:0 auto; }
+
+  .ig-tabs { display:flex; gap:10px; justify-content:center; padding:6px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:16px; max-width:380px; margin:0 auto 36px; backdrop-filter:var(--glass-blur); }
+  .ig-tab { flex:1; padding:14px 22px; border:none; background:transparent; color:var(--text-secondary); font-size:0.98rem; font-weight:600; font-family:inherit; cursor:pointer; border-radius:12px; transition:all var(--transition); display:flex; align-items:center; justify-content:center; gap:8px; }
+  .ig-tab:hover { color:var(--text-primary); }
+  .ig-tab.active { background:linear-gradient(135deg,rgba(108,99,255,0.85),rgba(168,85,247,0.85)); color:#fff; box-shadow:0 4px 16px rgba(108,99,255,0.35); }
+  .ig-tab-icon { font-size:1.1rem; }
+
+  .ig-panel { display:none; animation:igFadeIn 0.32s ease-out; }
+  .ig-panel.active { display:block; }
+  @keyframes igFadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  .ig-steps { display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
+  .ig-step { display:flex; align-items:flex-start; gap:20px; padding:22px 26px; transition:transform var(--transition),box-shadow var(--transition); }
+  .ig-step:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(108,99,255,0.18); }
+  .ig-step.highlight { border-color:rgba(255,193,7,0.35); background:linear-gradient(135deg,rgba(255,193,7,0.06),rgba(255,152,0,0.03)); }
+  .ig-step.success { border-color:rgba(52,211,153,0.4); background:linear-gradient(135deg,rgba(52,211,153,0.08),rgba(16,185,129,0.04)); }
+
+  .ig-step-num { flex-shrink:0; width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.05rem; box-shadow:0 4px 14px rgba(108,99,255,0.4); }
+  .ig-step.highlight .ig-step-num { background:linear-gradient(135deg,#ffc107,#ff9800); box-shadow:0 4px 14px rgba(255,152,0,0.45); }
+  .ig-step.success .ig-step-num { background:linear-gradient(135deg,#34d399,#10b981); box-shadow:0 4px 14px rgba(16,185,129,0.45); font-size:1.2rem; }
+
+  .ig-step-body { flex:1; }
+  .ig-step-body h4 { font-size:1.05rem; font-weight:700; color:var(--text-primary); margin:0 0 8px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .ig-step-body p { font-size:0.94rem; color:var(--text-secondary); line-height:1.6; margin:0 0 6px; }
+  .ig-step-body p:last-child { margin-bottom:0; }
+  .ig-step-body code { background:rgba(108,99,255,0.18); color:#c9b8ff; padding:2px 8px; border-radius:6px; font-size:0.88em; font-family:"SF Mono","Menlo","Monaco","Consolas",monospace; }
+  .ig-step-body strong { color:var(--text-primary); font-weight:700; }
+
+  .ig-badge { display:inline-block; background:linear-gradient(135deg,#ffc107,#ff9800); color:#1a1535; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:100px; letter-spacing:0.04em; }
+
+  /* 트러블슈팅 박스 */
+  .ig-trouble { padding:28px 32px; }
+  .ig-trouble-head { display:flex; align-items:center; gap:12px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--glass-border); }
+  .ig-trouble-icon { font-size:1.6rem; }
+  .ig-trouble-head h4 { font-size:1.15rem; font-weight:700; color:var(--text-primary); margin:0; }
+  .ig-trouble-item { padding:18px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .ig-trouble-item:last-child { border-bottom:none; padding-bottom:0; }
+  .ig-trouble-item:first-child { padding-top:0; }
+  .ig-trouble-item h5 { font-size:0.98rem; font-weight:700; color:var(--text-primary); margin:0 0 10px; }
+  .ig-trouble-item p { font-size:0.92rem; color:var(--text-secondary); line-height:1.65; margin:0 0 10px; }
+
+  .ig-codebox { display:flex; align-items:center; gap:10px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px 14px; margin:10px 0; }
+  .ig-codebox code { flex:1; color:#c9b8ff; font-family:"SF Mono","Menlo","Monaco","Consolas",monospace; font-size:0.85rem; background:none; padding:0; word-break:break-all; }
+  .ig-copy-btn { flex-shrink:0; padding:6px 14px; background:rgba(108,99,255,0.25); border:1px solid rgba(108,99,255,0.4); color:#e0d8ff; font-size:0.78rem; font-weight:600; border-radius:7px; cursor:pointer; transition:all 0.2s; font-family:inherit; }
+  .ig-copy-btn:hover { background:rgba(108,99,255,0.4); }
+  .ig-copy-btn.copied { background:rgba(52,211,153,0.25); border-color:rgba(52,211,153,0.5); color:#a7f3d0; }
+
+  .ig-link-btn { display:inline-block; padding:9px 18px; background:rgba(108,99,255,0.18); border:1px solid rgba(108,99,255,0.4); color:#c9b8ff; font-size:0.88rem; font-weight:600; border-radius:8px; text-decoration:none; transition:all 0.2s; margin-top:6px; }
+  .ig-link-btn:hover { background:rgba(108,99,255,0.32); }
+
+  /* 라이선스 키 안내 카드 */
+  .ig-license-tip { display:flex; gap:24px; align-items:flex-start; padding:28px 32px; margin-top:32px; background:linear-gradient(135deg,rgba(108,99,255,0.1),rgba(79,172,254,0.06)); border-color:rgba(108,99,255,0.3); }
+  .ig-license-icon { font-size:2.6rem; flex-shrink:0; }
+  .ig-license-tip h4 { font-size:1.1rem; font-weight:700; color:var(--text-primary); margin:0 0 10px; }
+  .ig-license-tip p { font-size:0.95rem; color:var(--text-secondary); line-height:1.65; margin:0 0 16px; }
+  .ig-license-tip code { background:rgba(108,99,255,0.2); color:#c9b8ff; padding:2px 8px; border-radius:6px; font-family:"SF Mono","Menlo",monospace; font-size:0.88em; }
+  .ig-license-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
   /* RESPONSIVE */
   @media(max-width:900px) { .trial-grid,.license-grid{grid-template-columns:1fr} .footer-grid{grid-template-columns:1fr 1fr} .footer-brand{grid-column:1/-1} }
-  @media(max-width:620px) { section{padding:80px 0} .glass-form{padding:28px 22px} .footer-grid{grid-template-columns:1fr} .modal-box{padding:32px 24px} .modal-actions{flex-direction:column} .modal-actions .btn-primary,.modal-actions .btn-secondary{width:100%} }
+  @media(max-width:620px) {
+    section{padding:80px 0}
+    .glass-form{padding:28px 22px}
+    .footer-grid{grid-template-columns:1fr}
+    .modal-box{padding:32px 24px}
+    .modal-actions{flex-direction:column}
+    .modal-actions .btn-primary,.modal-actions .btn-secondary{width:100%}
+    .ig-step{padding:18px 18px;gap:14px}
+    .ig-step-num{width:36px;height:36px;font-size:0.95rem}
+    .ig-trouble{padding:22px}
+    .ig-license-tip{flex-direction:column;padding:24px;gap:14px}
+    .ig-license-icon{font-size:2.2rem}
+    .ig-codebox{flex-direction:column;align-items:stretch}
+    .ig-codebox code{text-align:left}
+    .ig-copy-btn{align-self:flex-end}
+  }
   </style>
 </head>
 <body>
@@ -759,6 +836,216 @@
         <p style="margin-top:12px;font-size:0.8rem;color:var(--text-muted)">압축 해제 후 BloomPost.app 실행</p>
       </div>
     </div>
+
+    <!-- ───────────────────────────────────────────────── -->
+    <!--  설치 가이드 (Mac / Windows 탭)                    -->
+    <!-- ───────────────────────────────────────────────── -->
+    <div class="install-guide-wrap" style="margin-top:72px">
+      <div style="text-align:center;margin-bottom:28px">
+        <span class="section-label">설치 가이드</span>
+        <h3 style="font-size:clamp(24px,3.6vw,32px);font-weight:700;color:var(--text-primary);margin:14px 0 12px">
+          <span class="gradient-text">5분</span>만에 끝나는 설치 — 단계별 안내
+        </h3>
+        <p style="color:var(--text-secondary);font-size:1rem;line-height:1.6;margin:0 auto;max-width:620px">
+          처음이라도 그대로 따라하면 됩니다. 운영체제를 선택하세요.
+        </p>
+      </div>
+
+      <!-- 탭 버튼 -->
+      <div class="ig-tabs" role="tablist">
+        <button class="ig-tab active" data-target="ig-mac" role="tab" aria-selected="true">
+          <span class="ig-tab-icon">🍎</span> macOS
+        </button>
+        <button class="ig-tab" data-target="ig-win" role="tab" aria-selected="false">
+          <span class="ig-tab-icon">🪟</span> Windows
+        </button>
+      </div>
+
+      <!-- ─────── macOS 가이드 ─────── -->
+      <div class="ig-panel active" id="ig-mac">
+        <div class="ig-steps">
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">1</div>
+            <div class="ig-step-body">
+              <h4>zip 파일 다운로드</h4>
+              <p>위쪽 <strong>macOS 다운로드 (.zip)</strong> 버튼 클릭. Safari/Chrome 다운로드 폴더에 <code>BloomPost_mac.zip</code> 이 저장됩니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">2</div>
+            <div class="ig-step-body">
+              <h4>압축 해제</h4>
+              <p>다운로드 폴더에서 zip 파일을 <strong>더블클릭</strong>하면 자동으로 풀려서 <code>BloomPost.app</code> 이 생깁니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">3</div>
+            <div class="ig-step-body">
+              <h4>응용 프로그램 폴더로 이동</h4>
+              <p><code>BloomPost.app</code> 을 마우스로 끌어서 <strong>응용 프로그램(Applications)</strong> 폴더에 놓아주세요. 이래야 매번 다운로드 폴더에서 찾지 않아도 됩니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card highlight">
+            <div class="ig-step-num">4</div>
+            <div class="ig-step-body">
+              <h4>첫 실행 — 우클릭으로 열기 <span class="ig-badge">중요</span></h4>
+              <p>응용 프로그램 폴더에서 <code>BloomPost</code> 아이콘에 <strong>마우스 오른쪽 클릭(또는 Control + 클릭)</strong> 후 <strong>"열기"</strong>를 선택합니다.</p>
+              <p style="color:var(--text-muted);font-size:0.88rem;margin-top:8px">⚠️ 더블클릭으로 열면 macOS 보안 정책 때문에 "열 수 없음" 경고가 뜹니다. 반드시 첫 1회는 우클릭으로 열어주세요.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">5</div>
+            <div class="ig-step-body">
+              <h4>보안 경고창 → "열기" 클릭</h4>
+              <p><strong>"확인되지 않은 개발자가 만든 앱입니다"</strong> 경고가 뜨면 <strong>"열기"</strong> 버튼을 누르세요. (최초 1회만 — 다음부터는 더블클릭으로 바로 실행됩니다)</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card success">
+            <div class="ig-step-num">✓</div>
+            <div class="ig-step-body">
+              <h4>라이선스 키 입력 → 시작!</h4>
+              <p>앱이 실행되면 라이선스 입력 창이 뜹니다. 이메일로 받은 <code>BLOOM-XXXX-XXXX-XXXX</code> 키를 붙여넣고 <strong>인증</strong> 버튼을 누르면 끝.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- macOS 트러블슈팅 -->
+        <div class="ig-trouble glass-card">
+          <div class="ig-trouble-head">
+            <span class="ig-trouble-icon">🛠</span>
+            <h4>자주 발생하는 문제 — macOS</h4>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❶ "BloomPost.app이(가) 손상되어 열 수 없습니다" 오류</h5>
+            <p>macOS가 다운로드된 앱을 차단하는 보호 기능이에요. 터미널(앱 → 유틸리티 → 터미널)을 열고 아래 명령을 붙여넣으세요:</p>
+            <div class="ig-codebox">
+              <code id="ig-xattr-cmd">xattr -cr /Applications/BloomPost.app</code>
+              <button class="ig-copy-btn" onclick="copyInstall('ig-xattr-cmd', this)">복사</button>
+            </div>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px">실행 후 앱을 다시 열면 정상 동작합니다.</p>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❷ 우클릭해도 "열기" 메뉴가 없어요</h5>
+            <p>Finder에서 앱을 한 번 더 클릭해 선택한 뒤, <strong>Control 키를 누른 상태에서 클릭</strong>하거나 트랙패드 <strong>두 손가락 클릭</strong>을 시도해 주세요.</p>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❸ Apple Silicon (M1~M4) 사용 중인데 실행이 안 돼요</h5>
+            <p>드물게 Rosetta 2 설치가 필요할 수 있어요. 터미널에서:</p>
+            <div class="ig-codebox">
+              <code id="ig-rosetta-cmd">/usr/sbin/softwareupdate --install-rosetta --agree-to-license</code>
+              <button class="ig-copy-btn" onclick="copyInstall('ig-rosetta-cmd', this)">복사</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────── Windows 가이드 ─────── -->
+      <div class="ig-panel" id="ig-win">
+        <div class="ig-steps">
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">1</div>
+            <div class="ig-step-body">
+              <h4>zip 파일 다운로드</h4>
+              <p>위쪽 <strong>Windows 다운로드 (.zip)</strong> 버튼 클릭. Edge/Chrome 다운로드 폴더에 <code>BloomPost_windows.zip</code> 이 저장됩니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card highlight">
+            <div class="ig-step-num">2</div>
+            <div class="ig-step-body">
+              <h4>반드시 압축 해제 <span class="ig-badge">중요</span></h4>
+              <p>다운로드한 zip 파일에 <strong>마우스 오른쪽 클릭 → "압축 풀기" (또는 "모두 추출")</strong>를 선택하세요.</p>
+              <p style="color:var(--text-muted);font-size:0.88rem;margin-top:8px">⚠️ zip 안에서 바로 실행하면 작동 안 합니다. 반드시 압축을 풀고 그 안의 폴더에서 실행해야 해요.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">3</div>
+            <div class="ig-step-body">
+              <h4>BloomPost 폴더 열기</h4>
+              <p>압축 풀린 <strong>BloomPost</strong> 폴더 안에 들어가면 여러 파일이 있고, 그 중 <code>BloomPost.exe</code> 가 실행 파일입니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card">
+            <div class="ig-step-num">4</div>
+            <div class="ig-step-body">
+              <h4>BloomPost.exe 더블클릭</h4>
+              <p>실행 파일을 더블클릭하면 Windows 보안 경고창이 뜹니다.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card highlight">
+            <div class="ig-step-num">5</div>
+            <div class="ig-step-body">
+              <h4>"Windows의 PC 보호" 경고 → 실행 <span class="ig-badge">중요</span></h4>
+              <p>파란 경고창에서 <strong>"추가 정보"</strong> 글자를 클릭 → 아래쪽에 나타나는 <strong>"실행"</strong> 버튼을 누르세요.</p>
+              <p style="color:var(--text-muted);font-size:0.88rem;margin-top:8px">⚠️ "실행 안 함" 누르면 앱이 닫혀버려요. 반드시 "추가 정보" → "실행" 순서.</p>
+            </div>
+          </div>
+
+          <div class="ig-step glass-card success">
+            <div class="ig-step-num">✓</div>
+            <div class="ig-step-body">
+              <h4>라이선스 키 입력 → 시작!</h4>
+              <p>앱이 실행되면 라이선스 입력 창이 뜹니다. 이메일로 받은 <code>BLOOM-XXXX-XXXX-XXXX</code> 키를 붙여넣고 <strong>인증</strong> 버튼을 누르면 끝.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Windows 트러블슈팅 -->
+        <div class="ig-trouble glass-card">
+          <div class="ig-trouble-head">
+            <span class="ig-trouble-icon">🛠</span>
+            <h4>자주 발생하는 문제 — Windows</h4>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❶ Windows Defender / 백신이 차단해요</h5>
+            <p>코드 서명되지 않은 앱이라 가끔 백신이 오탐(false positive)을 합니다. <strong>"이 파일 허용"</strong> 또는 <strong>"앱 신뢰"</strong>로 예외 추가해 주세요. (V3, 알약, Norton 등 모두 동일)</p>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❷ "이 앱은 PC에서 실행할 수 없습니다" 오류</h5>
+            <p>Windows 32-bit 버전을 쓰고 있을 가능성이 있어요. BloomPost는 <strong>64-bit</strong> 전용입니다. 설정 → 시스템 → 정보에서 <strong>"시스템 종류"</strong>를 확인해 주세요.</p>
+          </div>
+
+          <div class="ig-trouble-item">
+            <h5>❸ "VCRUNTIME140.dll을 찾을 수 없습니다" 오류</h5>
+            <p>Microsoft Visual C++ 재배포 패키지가 필요해요. 아래 링크에서 받아 설치 후 다시 실행하세요:</p>
+            <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" target="_blank" class="ig-link-btn">📥 vc_redist.x64.exe 다운로드</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 라이선스 키 입력 안내 (공통) -->
+      <div class="ig-license-tip glass-card">
+        <div class="ig-license-icon">🔑</div>
+        <div>
+          <h4>라이선스 키는 어디서 받나요?</h4>
+          <p>홈페이지에서 <strong>무료 체험 신청</strong> 또는 <strong>구매 결제 완료</strong> 후 입력하신 이메일로 <code>BLOOM-XXXX-XXXX-XXXX</code> 형식의 키가 발송됩니다. 메일이 안 보이면 <strong>스팸함</strong>을 확인해 주세요.</p>
+          <div class="ig-license-actions">
+            <a href="#trial" class="btn btn-secondary" style="padding:10px 22px;font-size:0.92rem;border-radius:10px;text-decoration:none">무료 체험 신청</a>
+            <a href="#contact" class="btn btn-primary" style="padding:10px 22px;font-size:0.92rem;border-radius:10px;text-decoration:none">카톡 상담</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 시스템 요구사항 -->
     <div style="margin-top:56px">
       <div class="glass-card sysreq-card">
         <p class="sysreq-title">⚙️ 시스템 요구사항</p>
@@ -1074,6 +1361,58 @@
     var isOpen=item.classList.contains('open');
     item.parentElement.querySelectorAll('.faq-item').forEach(function(s){ s.classList.remove('open'); });
     if(!isOpen) item.classList.add('open');
+  };
+
+  /* Install Guide — 탭 전환 */
+  var igTabs = document.querySelectorAll('.ig-tab');
+  igTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('data-target');
+      igTabs.forEach(function(t){
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.querySelectorAll('.ig-panel').forEach(function(p){
+        p.classList.toggle('active', p.id === target);
+      });
+    });
+  });
+
+  /* OS 자동 감지 — Windows면 Windows 탭 기본 활성 */
+  try {
+    if (/Win/i.test(navigator.platform || navigator.userAgent)) {
+      var winTab = document.querySelector('.ig-tab[data-target="ig-win"]');
+      if (winTab) winTab.click();
+    }
+  } catch(e) {}
+
+  /* Install Guide — 코드 복사 버튼 */
+  window.copyInstall = function(codeId, btn){
+    var el = document.getElementById(codeId);
+    if (!el) return;
+    var text = el.textContent || el.innerText || '';
+    var ok = function(){
+      var orig = btn.textContent;
+      btn.textContent = '✓ 복사됨';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok).catch(function(){
+        // 폴백
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); ok(); } catch(_) {}
+        document.body.removeChild(ta);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(_) {}
+      document.body.removeChild(ta);
+    }
   };
 
 })();
